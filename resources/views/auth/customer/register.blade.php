@@ -7,7 +7,7 @@
 
     <h6 class="font-weight-light">{{ __('Criar uma conta é muito fácil! Basta cadastrar o formulário abaixo ;)') }}</h6>
 
-    <form class="pt-3" method="POST" action="{{ route('customer.register.save') }}">
+    <form class="pt-3" method="POST" action="{{ route('customer.register.store') }}">
         @csrf
 
         <div class="form-group">

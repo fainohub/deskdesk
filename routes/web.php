@@ -20,17 +20,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix' => 'agents', 'namespace' => 'Agent'], function (){
+Route::group(['prefix' => 'agent', 'namespace' => 'Agent'], function (){
     Route::group(['prefix' => 'login'], function (){
         Route::get('/', 'LoginController@index')->name('agent.login.index');
         Route::post('/', 'LoginController@login')->name('agent.login.post');
     });
 });
 
-Route::group(['prefix' => 'customers', 'namespace' => 'Customer'], function (){
+Route::group(['prefix' => 'customer', 'namespace' => 'Customer'], function (){
     Route::group(['prefix' => 'register'], function (){
         Route::get('/', 'RegisterController@index')->name('customer.register.index');
-        Route::post('/', 'RegisterController@save')->name('customer.register.save');
+        Route::post('/', 'RegisterController@store')->name('customer.register.store');
     });
 
     Route::group(['prefix' => 'login'], function (){
