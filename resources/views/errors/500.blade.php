@@ -10,8 +10,8 @@
                     <h1 class="display-1 mb-0">500</h1>
                 </div>
                 <div class="col-lg-6 error-page-divider text-lg-left pl-lg-4">
-                    <h2>{{ __('OOPS :X') }}</h2>
-                    <h3 class="font-weight-light">{{ __('Ocorreu um erro interno :( Logo logo voltamos ;)') }}</h3>
+                    <h2>{{ __('OOPS :(') }}</h2>
+                    <h3 class="font-weight-light">{{ __('Ocorreu um erro interno. Já estamos trabalhando nisso ;)') }}</h3>
                 </div>
             </div>
             <div class="row mt-5">
