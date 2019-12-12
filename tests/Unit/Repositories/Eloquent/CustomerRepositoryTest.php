@@ -5,13 +5,9 @@ namespace Tests\Unit\Repositories\Eloquent;
 use Tests\TestCase;
 use App\Models\Customer;
 use App\Repositories\Eloquent\CustomerRepository;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CustomerRepositoryTest extends TestCase
 {
-    use DatabaseMigrations, RefreshDatabase;
-
     /**
      * @var CustomerRepository
      */

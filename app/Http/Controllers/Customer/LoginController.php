@@ -2,18 +2,28 @@
 
 namespace App\Http\Controllers\Customer;
 
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function index()
+    use AuthenticatesUsers;
+
+    protected $redirectTo = '/customer/tickets';
+
+    public function __construct()
     {
-        return view('auth.customer.login');
+        $this->middleware('guest')->except('logout');
     }
 
-    public function login(Request $request)
+    protected function guard()
     {
-        dd($request->all());
+        return Auth::guard('customer');
+    }
+
+    public function index()
+    {
+        return view('customer.auth.login');
     }
 }

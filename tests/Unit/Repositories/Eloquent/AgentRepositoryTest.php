@@ -5,12 +5,10 @@ namespace Tests\Unit\Repositories\Eloquent;
 use Tests\TestCase;
 use App\Models\Agent;
 use App\Repositories\Eloquent\AgentRepository;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AgentRepositoryTest extends TestCase
 {
-    use DatabaseMigrations, RefreshDatabase;
+    //use DatabaseMigrations, RefreshDatabase;
 
     /**
      * @var AgentRepository

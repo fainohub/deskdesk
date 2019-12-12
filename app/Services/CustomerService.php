@@ -23,7 +23,7 @@ class CustomerService implements CustomerServiceInterface
 
     public function create(array $data)
     {
-        // TODO: Implement create() method.
+        return $this->customerRepository->create($data);
     }
 
     public function find($id, $columns = array('*'))

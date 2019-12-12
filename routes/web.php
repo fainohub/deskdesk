@@ -16,9 +16,7 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index')->name('home.index');
 
 Route::group(['prefix' => 'agent', 'namespace' => 'Agent'], function (){
     Route::group(['prefix' => 'login'], function (){
@@ -28,13 +26,15 @@ Route::group(['prefix' => 'agent', 'namespace' => 'Agent'], function (){
 });
 
 Route::group(['prefix' => 'customer', 'namespace' => 'Customer'], function (){
-    Route::group(['prefix' => 'register'], function (){
-        Route::get('/', 'RegisterController@index')->name('customer.register.index');
-        Route::post('/', 'RegisterController@store')->name('customer.register.store');
-    });
+    Route::get('register', 'RegisterController@index')->name('customer.register.index');
+    Route::post('register', 'RegisterController@store')->name('customer.register.store');
 
-    Route::group(['prefix' => 'login'], function (){
-        Route::get('/', 'LoginController@index')->name('customer.login.index');
-        Route::post('/', 'LoginController@login')->name('customer.login.post');
+    Route::get('login', 'LoginController@index')->name('customer.login.index');
+    Route::post('login', 'LoginController@login')->name('customer.login.post');
+
+    Route::get('logout', 'LoginController@logout')->name('customer.logout.index');
+
+    Route::group(['prefix' => 'tickets'], function (){
+        Route::get('/', 'TicketController@index')->name('customer.tickets.index');
     });
 });

@@ -98,8 +98,15 @@ return [
     */
 
     'passwords' => [
-        'users' => [
+        'customers' => [
             'provider' => 'customers',
+            'table'    => 'password_resets',
+            'expire'   => 60,
+            'throttle' => 60,
+        ],
+
+        'agents' => [
+            'provider' => 'agents',
             'table'    => 'password_resets',
             'expire'   => 60,
             'throttle' => 60,
