@@ -25,6 +25,22 @@ class RedirectIfAuthenticated
             return redirect('/agent/dashboard');
         }
 
+        //TODO: refactor
+//        if (Auth::guard($guard)->check()) {
+//            switch ($guard) {
+//                case 'customer' :
+//                    return redirect()->route('customer.tickets.index');
+//                    break;
+//                case 'agent' :
+//                    return redirect()->route('customer.tickets.index');
+//                    break;
+//                default:
+//                    return redirect()->route('home.index');
+//                    break;
+//            }
+//        }
+
+
         return $next($request);
     }
 }

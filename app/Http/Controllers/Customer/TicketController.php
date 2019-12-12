@@ -11,6 +11,8 @@ class TicketController extends Controller
 
     public function __construct(CustomerServiceInterface $customerService)
     {
+        $this->middleware('auth:customer');
+
         $this->customerService = $customerService;
     }
 

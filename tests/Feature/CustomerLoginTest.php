@@ -8,7 +8,6 @@ use Tests\TestCase;
 
 class CustomerLoginTest extends TestCase
 {
-
     /**
      * @var PasswordServiceInterface
      */
