@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Services\Contracts;
 
+use App\Http\Requests\StoreCustomerRequest;
+
 interface CustomerServiceInterface
 {
     public function list();
 
-    public function create(array $data);
+    public function create(StoreCustomerRequest $data);
 
     public function update(array $data, $id);
 

@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Services\Contracts\CustomerServiceInterface;
+use App\Services\Contracts\PasswordServiceInterface;
 use App\Services\CustomerService;
+use App\Services\PasswordHashService;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\Eloquent\AgentRepository;
 use App\Repositories\Eloquent\CustomerRepository;
@@ -27,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
          * Services
          */
         $this->app->bind(CustomerServiceInterface::class, CustomerService::class);
+        $this->app->bind(PasswordServiceInterface::class, PasswordHashService::class);
     }
 
     /**
