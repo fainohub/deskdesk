@@ -1,10 +1,11 @@
-@extends('layouts.auth')
+@extends('layouts.home')
 
-@section('title', 'PHP Helpdesk')
+@section('title', 'A simple PHP help desk')
 
 @section('content')
-    <h4>{{ __('Olá') }} ;)</h4>
-
-    <h6 class="font-weight-light">{{ __('Bem Vindo') }}</h6>
-
+    <div class="col-lg-8 mx-auto">
+        <div class="auth-form-light text-left p-5">
+            <h2>{{ __('Olá, como podemos ajudar?') }}</h2>
+        </div>
+    </div>
 @endsection
