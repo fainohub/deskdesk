@@ -14,16 +14,20 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
+Auth::routes();
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Route::group(['prefix' => 'agents', 'namespace' => 'Agent'], function (){
+    Route::group(['prefix' => 'login'], function (){
+        Route::get('/', 'LoginController@index')->name('agent.login.index');
+        Route::post('/', 'LoginController@login')->name('agent.login.post');
+    });
+});
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::group(['prefix' => 'customer', 'namespace' => 'Customer'], function (){
-
+Route::group(['prefix' => 'customers', 'namespace' => 'Customer'], function (){
     Route::group(['prefix' => 'register'], function (){
         Route::get('/', 'RegisterController@index')->name('customer.register.index');
         Route::post('/', 'RegisterController@save')->name('customer.register.save');
