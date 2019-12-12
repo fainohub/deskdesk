@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Dashboard | DeskDesk')
+@section('title', 'Dashboard')
 
 @section('content')
     <p>This is my body content.</p>
