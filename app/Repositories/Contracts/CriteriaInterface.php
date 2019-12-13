@@ -8,7 +8,7 @@ use App\Repositories\Criteria\Criteria;
 
 interface CriteriaInterface
 {
-    public function addCriteria(Criteria $criteria);
+    public function pushCriteria(Criteria $criteria);
 
     public function applyCriteria();
 }

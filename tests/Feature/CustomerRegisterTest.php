@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Models\Customer;
 use Tests\TestCase;
+use App\Models\Customer;
 
 class CustomerRegisterTest extends TestCase
 {
@@ -12,7 +12,6 @@ class CustomerRegisterTest extends TestCase
     {
         $response = $this->get(route('customer.register'));
 
-        $response->assertSuccessful();
         $response->assertViewIs('customer.auth.register');
     }
 
