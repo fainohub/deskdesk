@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title')</title>
+    <title>@yield('title') | DeskDesk</title>
 
     <link rel="stylesheet" href="{{ asset('vendors/mdi/css/materialdesignicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendors/flag-icon-css/css/flag-icon.min.css') }}">
@@ -21,18 +21,18 @@
 <body>
     <div class="container-scroller">
 
-        @include('dashboard.partials._navbar')
+        @include('layouts.partials._navbar')
 
         <div class="container-fluid page-body-wrapper">
 
-            @include('dashboard.partials._sidebar')
+            @include('layouts.partials._sidebar')
 
             <div class="main-panel">
                 <div class="content-wrapper">
                     @yield('content')
                 </div>
 
-                @include('dashboard.partials._footer')
+                @include('layouts.partials._footer')
 
             </div>
         </div>

@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,10 +14,27 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home.index');
+
+Route::group(['prefix' => 'agent', 'namespace' => 'Agent'], function (){
+    Route::group(['prefix' => 'login'], function (){
+        Route::get('/', 'LoginController@index')->name('agent.login.index');
+        Route::post('/', 'LoginController@login')->name('agent.login.post');
+    });
+});
+
+Route::group(['prefix' => 'customer', 'namespace' => 'Customer'], function (){
+    Route::get('register', 'RegisterController@index')->name('customer.register.index');
+    Route::post('register', 'RegisterController@store')->name('customer.register.store');
+
+    Route::get('login', 'LoginController@index')->name('customer.login.index');
+    Route::post('login', 'LoginController@login')->name('customer.login.post');
+
+    Route::get('logout', 'LoginController@logout')->name('customer.logout.index');
+
+    Route::group(['prefix' => 'tickets'], function (){
+        Route::get('/', 'TicketController@index')->name('customer.tickets.index');
+    });
+});
