@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use App\Models\Customer;
 
-class IndexTicketsTest extends TestCase
+class TicketIndexTest extends TestCase
 {
     private $customer;
 
@@ -24,5 +24,6 @@ class IndexTicketsTest extends TestCase
 
         $response->assertSuccessful();
         $response->assertViewIs('customer.tickets.index');
+        $response->assertViewHas('tickets');
     }
 }
