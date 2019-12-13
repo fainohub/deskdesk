@@ -13,7 +13,7 @@ class CustomerLoginTest extends TestCase
      */
     private $passwordService;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
