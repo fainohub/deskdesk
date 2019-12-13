@@ -2,6 +2,8 @@
 
 @section('title', 'Login')
 
+@section('cart-title', 'Atendimento ao Cliente - DeskDesk')
+
 @section('content')
     <h6 class="font-weight-light">{{ __('Faça o Login para continuar') }}</h6>
 

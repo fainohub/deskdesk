@@ -19,9 +19,13 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home.index');
 
 Route::group(['prefix' => 'agent', 'namespace' => 'Agent'], function (){
-    Route::group(['prefix' => 'login'], function (){
-        Route::get('/', 'LoginController@index')->name('agent.login');
-        Route::post('/', 'LoginController@login')->name('agent.login.post');
+    Route::get('login', 'LoginController@index')->name('agent.login');
+    Route::post('login', 'LoginController@login')->name('agent.login.post');
+
+    Route::get('logout', 'LoginController@logout')->name('agent.logout');
+
+    Route::group(['prefix' => 'dashboard'], function (){
+        Route::get('/', 'DashboardController@index')->name('agent.dashboard.index');
     });
 });
 

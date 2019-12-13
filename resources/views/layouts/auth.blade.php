@@ -24,7 +24,8 @@
                 <div class="row flex-grow">
                     <div class="col-lg-4 mx-auto">
                         <div class="auth-form-light text-left p-5">
-                            <h2>DeskDesk</h2>
+                            <h2>@yield('cart-title', 'DeskDesk')</h2>
+
                             @yield('content')
                         </div>
                     </div>
