@@ -40,5 +40,7 @@ Route::group(['prefix' => 'customer', 'namespace' => 'Customer'], function (){
 
     Route::group(['prefix' => 'tickets'], function (){
         Route::get('/', 'TicketController@index')->name('customer.tickets.index');
+        Route::get('/create', 'TicketController@create')->name('customer.tickets.create');
+        Route::post('/', 'TicketController@store')->name('customer.tickets.store');
     });
 });

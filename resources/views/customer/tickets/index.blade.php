@@ -23,7 +23,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <a href="" class="btn btn-primary float-right">{{ __('Criar Ticket') }}</a>
+                                    <a href="{{ route('customer.tickets.create') }}" class="btn btn-primary float-right">{{ __('Criar Ticket') }}</a>
                                 </div>
                             </div>
 

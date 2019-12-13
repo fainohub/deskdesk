@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Models\Customer;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Repositories\Eloquent\CustomerRepository;
 use App\Services\Contracts\CustomerServiceInterface;
@@ -22,12 +23,7 @@ class CustomerService implements CustomerServiceInterface
         $this->passwordService = $passwordService;
     }
 
-    public function list()
-    {
-        return $this->customerRepository->paginate();
-    }
-
-    public function create(StoreCustomerRequest $request)
+    public function create(StoreCustomerRequest $request): Customer
     {
         $data = [
             'name'     => $request->get('name'),
@@ -36,20 +32,5 @@ class CustomerService implements CustomerServiceInterface
         ];
 
         return $this->customerRepository->create($data);
-    }
-
-    public function find($id, $columns = array('*'))
-    {
-        // TODO: Implement find() method.
-    }
-
-    public function update(array $data, $id)
-    {
-        // TODO: Implement update() method.
-    }
-
-    public function delete($id)
-    {
-        // TODO: Implement delete() method.
     }
 }
