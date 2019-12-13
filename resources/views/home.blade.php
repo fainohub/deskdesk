@@ -1,23 +1,40 @@
 @extends('layouts.app')
 
+@section('title', 'A simple PHP help desk')
+
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+    <div class="row flex-grow">
+        <div class="col-lg-8 mx-auto">
+            <div class="row">
+                <div class="col-lg-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h1>{{ __('Bem vindo ao DeskDesk') }}</h1>
+                            <h6 class="font-weight-light">{{ __('A simple PHP help desk.') }}</h6><hr>
+                            <h2>{{ __('Como podemos ajudar?') }}</h2>
                         </div>
-                    @endif
+                    </div>
+                </div>
 
-                    You are logged in!
+                <div class="col-lg-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <a href="{{ route('customer.tickets.index') }}">Meus tickets</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2>{{ __('Navegue nas páginas de Ajuda') }}</h2>
+                            <hr>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
 @endsection

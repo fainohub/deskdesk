@@ -5,7 +5,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./docker/php/Dockerfile
     image: digitalocean.com/php
     container_name: app
     restart: unless-stopped
@@ -58,6 +58,7 @@ services:
 networks:
   app-network:
     driver: bridge
+
 #Volumes
 volumes:
   dbdata:
