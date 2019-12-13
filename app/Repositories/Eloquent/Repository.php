@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\Eloquent;
 
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use App\Repositories\Exceptions\RepositoryException;
 use App\Repositories\Contracts\CriteriaInterface;
@@ -15,9 +16,9 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
     protected $model;
     protected $criteria;
 
-    public function __construct()
+    public function __construct(Collection $collection)
     {
-        $this->criteria = null;
+        $this->criteria = $collection;
         $this->makeModel();
     }
 
@@ -37,6 +38,13 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
         return $this->model->paginate($perPage, $columns);
     }
 
+    public function find($id, $columns = array('*'))
+    {
+        $this->applyCriteria();
+
+        return $this->model->find($id, $columns);
+    }
+
     public function create(array $data)
     {
         return $this->model->create($data);
@@ -52,32 +60,9 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
         return $this->model->destroy($id);
     }
 
-    public function find($id, $columns = array('*'))
-    {
-        $this->applyCriteria();
-
-        return $this->model->find($id, $columns);
-    }
-
     public function with(array $relations)
     {
         $this->model = $this->model->with($relations);
-
-        return $this;
-    }
-
-    public function addCriteria(Criteria $criteria)
-    {
-        $this->criteria = $criteria;
-
-        return $this;
-    }
-
-    public function applyCriteria()
-    {
-        if ($this->criteria instanceof Criteria) {
-            $this->model = $this->criteria->apply($this->model, $this);
-        }
 
         return $this;
     }
@@ -91,5 +76,28 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
         }
 
         return $this->model = $newModel;
+    }
+
+    public function getCriteria()
+    {
+        return $this->criteria;
+    }
+
+    public function applyCriteria()
+    {
+        foreach ($this->getCriteria() as $criteria) {
+            if ($criteria instanceof Criteria) {
+                $this->model = $criteria->apply($this->model, $this);
+            }
+        }
+
+        return $this;
+    }
+
+    public function pushCriteria(Criteria $criteria)
+    {
+        $this->criteria->push($criteria);
+
+        return $this;
     }
 }

@@ -23,7 +23,12 @@ class TicketController extends Controller
 
     public function index()
     {
-        return view('customer.tickets.index');
+        $customer = Auth::user();
+
+        $tickets = $this->ticketService->paginateByCustomer($customer);
+
+        return view('customer.tickets.index')
+            ->with('tickets', $tickets);
     }
 
     public function create()

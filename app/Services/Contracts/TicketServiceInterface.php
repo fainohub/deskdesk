@@ -12,4 +12,6 @@ interface TicketServiceInterface
 {
 
     public function create(StoreTicketRequest $request, Customer $customer): Ticket;
+
+    public function paginateByCustomer(Customer $customer);
 }
