@@ -11,7 +11,7 @@
                 <h3 class="page-title"> {{ __('Meus tickets') }}</h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('home.index') }}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('home.index') }}">{{ __('Home') }}</a></li>
                         <li class="breadcrumb-item active" aria-current="page">{{ __('Meus tickets') }}</li>
                     </ol>
                 </nav>
@@ -21,6 +21,14 @@
                 <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <a href="" class="btn btn-primary float-right">{{ __('Criar Ticket') }}</a>
+                                </div>
+                            </div>
+
+                            <hr>
+
                             <table class="table table-hover">
                                 <thead>
                                     <tr>

@@ -8,8 +8,6 @@ use App\Repositories\Eloquent\AgentRepository;
 
 class AgentRepositoryTest extends TestCase
 {
-    //use DatabaseMigrations, RefreshDatabase;
-
     /**
      * @var AgentRepository
      */
@@ -44,5 +42,39 @@ class AgentRepositoryTest extends TestCase
         $agent = $this->agentRepository->create($data);
 
         $this->assertInstanceOf(Agent::class, $agent);
+    }
+
+    public function testUpdate()
+    {
+        $agentFactory = factory(Agent::class)->create();
+
+        $data = [
+            'name' => 'Thiago'
+        ];
+
+        $agent = $this->agentRepository->update($data, $agentFactory->id);
+
+        $this->assertEquals(1, $agent);
+    }
+
+    public function testDelete()
+    {
+        $agentFactory = factory(Agent::class)->create();
+
+        $agent = $this->agentRepository->delete($agentFactory->id);
+
+        $this->assertEquals(1, $agent);
+    }
+
+    public function testFind()
+    {
+        $agentFactory = factory(Agent::class)->create();
+
+        $agent = $this->agentRepository->find($agentFactory->id);
+
+        $this->assertInstanceOf(Agent::class, $agent);
+        $this->assertEquals($agentFactory->id, $agent->id);
+        $this->assertEquals($agentFactory->name, $agent->name);
+        $this->assertEquals($agentFactory->email, $agent->email);
     }
 }
