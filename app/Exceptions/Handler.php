@@ -60,10 +60,10 @@ class Handler extends ExceptionHandler
 
         switch ($guard) {
             case 'customer':
-                $redirectTo = route('customer.login.index');
+                $redirectTo = route('customer.login');
                 break;
             case 'agent':
-                $redirectTo = route('agent.login.index');
+                $redirectTo = route('agent.login');
                 break;
             default:
                 $redirectTo = route('home.index');

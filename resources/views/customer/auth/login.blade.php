@@ -45,7 +45,7 @@
         </div>
 
         <div class="text-center mt-4 font-weight-light">
-            {{ __('Não possui uma conta?') }} <a href="{{ route('customer.register.index') }}" class="text-primary">{{ __('Registrar') }}</a>
+            {{ __('Não possui uma conta?') }} <a href="{{ route('customer.register') }}" class="text-primary">{{ __('Registrar') }}</a>
         </div>
     </form>
 @endsection

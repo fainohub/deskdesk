@@ -25,10 +25,6 @@
                     <div class="col-lg-4 mx-auto">
                         <div class="auth-form-light text-left p-5">
                             <h2>DeskDesk</h2>
-{{--                            <div class="brand-logo">--}}
-{{--                                <img src="{{ asset('images/logo-dark.svg') }}">--}}
-{{--                            </div>--}}
-
                             @yield('content')
                         </div>
                     </div>
