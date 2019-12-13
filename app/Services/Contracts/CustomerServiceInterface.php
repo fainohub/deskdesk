@@ -10,5 +10,5 @@ use App\Http\Requests\StoreCustomerRequest;
 interface CustomerServiceInterface
 {
 
-    public function create(StoreCustomerRequest $data): Customer;
+    public function create(StoreCustomerRequest $request): Customer;
 }

@@ -1,0 +1,29 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Services;
+
+use App\Models\Ticket;
+use App\Http\Requests\StoreTicketRequest;
+use App\Repositories\Eloquent\TicketRepository;
+use App\Services\Contracts\TicketServiceInterface;
+
+class TicketService implements TicketServiceInterface
+{
+    private $ticketRepository;
+
+    public function __construct(TicketRepository $ticketRepository) {
+        $this->ticketRepository = $ticketRepository;
+    }
+
+    public function create(StoreTicketRequest $request): Ticket
+    {
+        $data = [
+            'title'       => $request->get('title'),
+            'description' => $request->get('description'),
+        ];
+
+        return $this->ticketRepository->create($data);
+    }
+}
