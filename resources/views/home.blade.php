@@ -10,8 +10,9 @@
                 <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h1>{{ __('Bem vindo ao DeskDesk') }}</h1>
+                            <h1>{{ __('Bem vindo ao DeskDesk.') }}</h1>
                             <h6 class="font-weight-light">{{ __('A simple PHP help desk.') }}</h6><hr>
+
                             <h2>{{ __('Como podemos ajudar?') }}</h2>
                         </div>
                     </div>

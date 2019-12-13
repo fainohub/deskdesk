@@ -18,6 +18,6 @@ class TicketController extends Controller
 
     public function index()
     {
-        echo 'TicketController@index';
+        return view('customer.tickets.index');
     }
 }

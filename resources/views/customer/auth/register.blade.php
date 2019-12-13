@@ -63,7 +63,7 @@
         </div>
 
         <div class="text-center mt-4 font-weight-light">
-            {{ __('Já possui uma conta?') }} <a href="{{ route('customer.login.index') }}" class="text-primary">{{ __('Login') }}</a>
+            {{ __('Já possui uma conta?') }} <a href="{{ route('customer.login') }}" class="text-primary">{{ __('Login') }}</a>
         </div>
     </form>
 @endsection
