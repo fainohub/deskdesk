@@ -22,7 +22,7 @@ class CustomerLoginTest extends TestCase
 
     public function testCustomerLoginIndex()
     {
-        $response = $this->get(route('customer.login.index'));
+        $response = $this->get(route('customer.login'));
 
         $response->assertSuccessful();
         $response->assertViewIs('customer.auth.login');

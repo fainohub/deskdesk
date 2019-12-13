@@ -21,18 +21,18 @@
 <body>
     <div class="container-scroller">
 
-        @include('layouts.partials._navbar')
+        @include('layouts.partials.dashboard._navbar')
 
         <div class="container-fluid page-body-wrapper">
 
-            @include('layouts.partials._sidebar')
+            @include('layouts.partials.dashboard._sidebar')
 
             <div class="main-panel">
                 <div class="content-wrapper">
                     @yield('content')
                 </div>
 
-                @include('layouts.partials._footer')
+                @include('layouts.partials.dashboard._footer')
 
             </div>
         </div>

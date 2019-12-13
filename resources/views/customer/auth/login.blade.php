@@ -2,6 +2,8 @@
 
 @section('title', 'Login')
 
+@section('cart-title', 'Atendimento ao Cliente - DeskDesk')
+
 @section('content')
     <h6 class="font-weight-light">{{ __('Faça o Login para continuar') }}</h6>
 
@@ -45,7 +47,7 @@
         </div>
 
         <div class="text-center mt-4 font-weight-light">
-            {{ __('Não possui uma conta?') }} <a href="{{ route('customer.register.index') }}" class="text-primary">{{ __('Registrar') }}</a>
+            {{ __('Não possui uma conta?') }} <a href="{{ route('customer.register') }}" class="text-primary">{{ __('Registrar') }}</a>
         </div>
     </form>
 @endsection

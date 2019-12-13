@@ -1,23 +1,23 @@
 <?php
 
-namespace App\Http\Controllers\Customer;
+namespace App\Http\Controllers\Agent;
 
 use App\Http\Controllers\Controller;
 use App\Services\Contracts\CustomerServiceInterface;
 
-class TicketController extends Controller
+class DashboardController extends Controller
 {
     private $customerService;
 
     public function __construct(CustomerServiceInterface $customerService)
     {
-        $this->middleware('auth:customer');
+        $this->middleware('auth:agent');
 
         $this->customerService = $customerService;
     }
 
     public function index()
     {
-        return view('customer.tickets.index');
+        return view('agent.dashboard.index');
     }
 }

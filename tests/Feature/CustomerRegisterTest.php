@@ -10,7 +10,7 @@ class CustomerRegisterTest extends TestCase
 
     public function testCustomerRegisterIndex()
     {
-        $response = $this->get(route('customer.register.index'));
+        $response = $this->get(route('customer.register'));
 
         $response->assertSuccessful();
         $response->assertViewIs('customer.auth.register');

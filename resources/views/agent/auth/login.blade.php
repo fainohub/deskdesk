@@ -2,9 +2,9 @@
 
 @section('title', 'Login')
 
-@section('content')
-    <h4>{{ __('Olá') }} ;)</h4>
+@section('cart-title', 'Área do Atendente - DeskDesk')
 
+@section('content')
     <h6 class="font-weight-light">{{ __('Faça o Login para continuar') }}</h6>
 
     <form class="pt-3" method="POST" action="{{ route('agent.login.post') }}">
@@ -37,17 +37,13 @@
                     placeholder="{{ __('Senha') }}"
             >
 
-            @error('email')
+            @error('password')
                 <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span>
             @enderror
         </div>
 
         <div class="mt-3">
             <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">{{ __('LOGIN') }}</button>
-        </div>
-
-        <div class="text-center mt-4 font-weight-light">
-            {{ __('Não possui uma conta?') }} <a href="{{ route('customer.register.index') }}" class="text-primary">{{ __('Registrar') }}</a>
         </div>
     </form>
 @endsection
