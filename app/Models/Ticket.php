@@ -6,7 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ticket extends Model
 {
-    const STATUS = ['open', 'reopen', 'inprogress', 'closed'];
+    const STATUS_OPEN        = 'open';
+    const STATUS_REOPEN      = 'reopen';
+    const STATUS_IN_PROGRESS = 'inprogress';
+    const STATUS_CLOSED      = 'closed';
 
     protected $table = 'tickets';
 

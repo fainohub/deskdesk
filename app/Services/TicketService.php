@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Models\Customer;
 use App\Models\Ticket;
 use App\Http\Requests\StoreTicketRequest;
 use App\Repositories\Eloquent\TicketRepository;
@@ -17,11 +18,13 @@ class TicketService implements TicketServiceInterface
         $this->ticketRepository = $ticketRepository;
     }
 
-    public function create(StoreTicketRequest $request): Ticket
+    public function create(StoreTicketRequest $request, Customer $customer): Ticket
     {
         $data = [
+            'customer_id' => $customer->id,
             'title'       => $request->get('title'),
             'description' => $request->get('description'),
+            'status'      => Ticket::STATUS_OPEN
         ];
 
         return $this->ticketRepository->create($data);

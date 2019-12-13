@@ -13,7 +13,7 @@ $factory->define(Ticket::class, function (Faker $faker) {
         'agent_id'    => factory(Agent::class)->create()->id,
         'title'       => $faker->text(150),
         'description' => $faker->text(500),
-        'status'      => Ticket::STATUS[0],
+        'status'      => Ticket::STATUS_OPEN,
         'created_at'  => now(),
         'updated_at'  => now(),
     ];
