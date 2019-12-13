@@ -3,8 +3,6 @@
 @section('title', 'Login')
 
 @section('content')
-    <h4>{{ __('Olá') }} ;)</h4>
-
     <h6 class="font-weight-light">{{ __('Faça o Login para continuar') }}</h6>
 
     <form class="pt-3" method="POST" action="{{ route('customer.login.post') }}">
