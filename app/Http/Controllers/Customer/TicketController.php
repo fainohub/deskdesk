@@ -4,18 +4,21 @@ namespace App\Http\Controllers\Customer;
 
 use App\Helpers\LogContext;
 use App\Http\Controllers\Controller;
-use App\Services\Contracts\CustomerServiceInterface;
+use App\Http\Requests\StoreTicketRequest;
+use App\Models\Customer;
+use App\Services\Contracts\TicketServiceInterface;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class TicketController extends Controller
 {
-    private $customerService;
+    private $ticketService;
 
-    public function __construct(CustomerServiceInterface $customerService)
+    public function __construct(TicketServiceInterface $ticketService)
     {
         $this->middleware('auth:customer');
 
-        $this->customerService = $customerService;
+        $this->ticketService = $ticketService;
     }
 
     public function index()
@@ -28,9 +31,12 @@ class TicketController extends Controller
         return view('customer.tickets.create');
     }
 
-    public function store()
+    public function store(StoreTicketRequest $request)
     {
         try {
+            $customer = Auth::user();
+
+            $this->ticketService->create($request, $customer);
 
             return redirect()->route('customer.tickets.index');
         } catch (\Exception $exception) {
