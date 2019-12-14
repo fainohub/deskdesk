@@ -60,29 +60,6 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
         return $this->model->destroy($id);
     }
 
-    public function with(array $relations)
-    {
-        $this->model = $this->model->with($relations);
-
-        return $this;
-    }
-
-    private function makeModel()
-    {
-        $newModel = resolve($this->model());
-
-        if (!$newModel instanceof Model) {
-            throw new RepositoryException("Class {$newModel} must be an instance of Illuminate\\Database\\Eloquent\\Model");
-        }
-
-        return $this->model = $newModel;
-    }
-
-    public function getCriteria()
-    {
-        return $this->criteria;
-    }
-
     public function applyCriteria()
     {
         foreach ($this->getCriteria() as $criteria) {
@@ -99,5 +76,28 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
         $this->criteria->push($criteria);
 
         return $this;
+    }
+
+    public function with(array $relations)
+    {
+        $this->model = $this->model->with($relations);
+
+        return $this;
+    }
+
+    private function makeModel()
+    {
+        $newModel = resolve($this->model()); //Create model
+
+        if (!$newModel instanceof Model) {
+            throw new RepositoryException("Class {$newModel} must be an instance of Illuminate\\Database\\Eloquent\\Model");
+        }
+
+        return $this->model = $newModel;
+    }
+
+    public function getCriteria()
+    {
+        return $this->criteria;
     }
 }
