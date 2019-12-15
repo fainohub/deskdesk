@@ -13,4 +13,5 @@ class CustomerRepository extends Repository
     {
         return Customer::class;
     }
+
 }

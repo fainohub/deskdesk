@@ -53,7 +53,7 @@ class TicketServiceTest extends TestCase
             'customer_id' => $this->customer->id
         ]);
 
-        $tickets = $this->ticketService->paginateByCustomer($this->customer);
+        $tickets = $this->ticketService->ticketsPaginatedByCustomer($this->customer);
 
         $this->assertNotEmpty($tickets);
     }

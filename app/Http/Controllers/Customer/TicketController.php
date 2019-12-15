@@ -25,7 +25,7 @@ class TicketController extends Controller
     {
         $customer = Auth::user();
 
-        $tickets = $this->ticketService->paginateByCustomer($customer);
+        $tickets = $this->ticketService->ticketsPaginatedByCustomer($customer);
 
         return view('customer.tickets.index')
             ->with('tickets', $tickets);

@@ -7,20 +7,24 @@ namespace App\Services;
 use App\Models\Customer;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Repositories\Eloquent\CustomerRepository;
+use App\Repositories\Eloquent\TicketRepository;
 use App\Services\Contracts\CustomerServiceInterface;
 use App\Services\Contracts\PasswordServiceInterface;
 
 class CustomerService implements CustomerServiceInterface
 {
-    private $customerRepository;
     private $passwordService;
+    private $ticketRepository;
+    private $customerRepository;
 
     public function __construct(
-        CustomerRepository $customerRepository,
-        PasswordServiceInterface $passwordService
+        PasswordServiceInterface $passwordService,
+        TicketRepository $ticketRepository,
+        CustomerRepository $customerRepository
     ) {
         $this->customerRepository = $customerRepository;
         $this->passwordService = $passwordService;
+        $this->ticketRepository = $ticketRepository;
     }
 
     public function create(StoreCustomerRequest $request): Customer
@@ -33,4 +37,5 @@ class CustomerService implements CustomerServiceInterface
 
         return $this->customerRepository->create($data);
     }
+
 }

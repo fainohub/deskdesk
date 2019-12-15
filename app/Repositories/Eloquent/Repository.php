@@ -6,10 +6,10 @@ namespace App\Repositories\Eloquent;
 
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
+use App\Repositories\Contracts\Criteria;
 use App\Repositories\Exceptions\RepositoryException;
 use App\Repositories\Contracts\CriteriaInterface;
 use App\Repositories\Contracts\RepositoryInterface;
-use App\Repositories\Criteria\Criteria;
 
 abstract class Repository implements RepositoryInterface, CriteriaInterface
 {
