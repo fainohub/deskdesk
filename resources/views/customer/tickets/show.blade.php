@@ -23,8 +23,9 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">{{ $ticket->title }}</h4>
-                            <p>{{ $ticket->updated_at->format('d/m/Y H:m:i') }}</p>
-                            <h6>{{ $ticket->description }}</h6>
+                            <h5>{{ $ticket->description }}</h5>
+                            <hr>
+                            <p class="small">{{ $ticket->updated_at->format('d/m/Y H:m:i') }}</p>
                         </div>
                     </div>
                 </div>
@@ -35,6 +36,11 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">{{ __('Mensagens') }}</h4>
+
+                            <blockquote class="blockquote blockquote">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                                <footer class="blockquote-footer">Thiago Faino <cite title="Source Title">15/12/2019 13:54</cite></footer>
+                            </blockquote>
                         </div>
                     </div>
                 </div>
