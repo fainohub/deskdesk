@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories\Criteria;
+namespace App\Repositories\Eloquent\Filters;
 
 use App\Models\Customer;
+use App\Repositories\Contracts\Criteria;
 use App\Repositories\Contracts\RepositoryInterface;
 
 class ByCustomer extends Criteria

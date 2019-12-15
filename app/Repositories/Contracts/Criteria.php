@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories\Criteria;
-
-use App\Repositories\Contracts\RepositoryInterface;
+namespace App\Repositories\Contracts;
 
 abstract class Criteria
 {

@@ -2,10 +2,9 @@
 
 namespace Tests\Unit\Repositories\Eloquent;
 
-use App\Http\Requests\StoreCustomerRequest;
-use App\Models\Customer;
 use Tests\TestCase;
-use App\Models\Agent;
+use App\Models\Customer;
+use App\Http\Requests\StoreCustomerRequest;
 use App\Services\Contracts\CustomerServiceInterface;
 
 class CustomerServiceTest extends TestCase

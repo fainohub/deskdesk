@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Repositories\Contracts\AgentRepositoryInterface;
+use App\Repositories\Contracts\CustomerRepositoryInterface;
+use App\Repositories\Contracts\TicketRepositoryInterface;
+use App\Repositories\Eloquent\TicketRepository;
 use App\Services\Contracts\CustomerServiceInterface;
 use App\Services\Contracts\PasswordServiceInterface;
 use App\Services\Contracts\TicketServiceInterface;
@@ -24,8 +28,9 @@ class AppServiceProvider extends ServiceProvider
         /*
          * Repositories
          */
-        $this->app->bind(AgentRepository::class);
-        $this->app->bind(CustomerRepository::class);
+        $this->app->bind(AgentRepositoryInterface::class, AgentRepository::class);
+        $this->app->bind(CustomerRepositoryInterface::class, CustomerRepository::class);
+        $this->app->bind(TicketRepositoryInterface::class, TicketRepository::class);
 
         /*
          * Services
