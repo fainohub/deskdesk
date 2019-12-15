@@ -59,8 +59,11 @@
                                                 @default
                                                     <td><label class="badge badge-default">{{ $ticket->status }}</label></td>
                                             @endswitch
-                                            <td><a href="{{ route('customer.tickets.show', ['id' => $ticket->id]) }}"
-                                                   class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a></td>
+                                            <td>
+                                                <a href="{{ route('customer.tickets.show', ['id' => $ticket->id]) }}"
+                                                   class="btn btn-sm btn-primary"><i class="fa fa-eye"></i>
+                                                </a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

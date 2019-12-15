@@ -7,6 +7,7 @@ use App\Models\Ticket;
 use App\Models\Customer;
 use App\Http\Requests\StoreTicketRequest;
 use App\Services\Contracts\TicketServiceInterface;
+use App\Services\Exceptions\NotFoundException;
 
 class TicketServiceTest extends TestCase
 {
@@ -56,5 +57,23 @@ class TicketServiceTest extends TestCase
         $tickets = $this->ticketService->ticketsPaginatedByCustomer($this->customer);
 
         $this->assertNotEmpty($tickets);
+    }
+
+    public function testFindSuccess()
+    {
+        $ticketFaker = factory(Ticket::class)->create([
+            'customer_id' => $this->customer->id
+        ]);
+
+        $ticket = $this->ticketService->find($ticketFaker->id);
+
+        $this->assertInstanceOf(Ticket::class, $ticket);
+    }
+
+    public function testNotFoundException()
+    {
+        $this->expectException(NotFoundException::class);
+
+        $this->ticketService->find(500);
     }
 }
