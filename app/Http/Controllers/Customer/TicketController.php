@@ -23,17 +23,28 @@ class TicketController extends Controller
 
     public function index()
     {
-        $customer = Auth::user();
+        try {
+            $customer = Auth::user();
 
-        $tickets = $this->ticketService->ticketsPaginatedByCustomer($customer);
+            $tickets = $this->ticketService->ticketsPaginatedByCustomer($customer);
 
-        return view('customer.tickets.index')
-            ->with('tickets', $tickets);
+            return view('customer.tickets.index')->with('tickets', $tickets);
+        } catch (\Exception $exception) {
+            Log::error($exception->getMessage(), LogContext::context($exception));
+
+            return redirect()->back()->withErrors(__('Ocorreu um erro, por favor tente novamente mais tarde :('));
+        }
     }
 
     public function create()
     {
-        return view('customer.tickets.create');
+        try {
+            return view('customer.tickets.create');
+        } catch (\Exception $exception) {
+            Log::error($exception->getMessage(), LogContext::context($exception));
+
+            return redirect()->back()->withErrors(__('Ocorreu um erro, por favor tente novamente mais tarde :('));
+        }
     }
 
     public function store(StoreTicketRequest $request)
