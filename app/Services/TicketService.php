@@ -7,7 +7,7 @@ namespace App\Services;
 use App\Models\Customer;
 use App\Models\Ticket;
 use App\Http\Requests\StoreTicketRequest;
-use App\Repositories\Exceptions\NotFoundException;
+use App\Services\Exceptions\NotFoundException;
 use App\Services\Contracts\TicketServiceInterface;
 use App\Repositories\Contracts\TicketRepositoryInterface;
 

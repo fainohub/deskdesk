@@ -43,7 +43,22 @@
                                         <tr>
                                             <td>{{ $ticket->title }}</td>
                                             <td>{{ $ticket->created_at->format('d/m/Y H:i:s') }}</td>
-                                            <td><label class="badge badge-default">{{ $ticket->status }}</label></td>
+                                            @switch($ticket->status)
+                                                @case(\App\Models\Ticket::STATUS_OPEN)
+                                                    <td><label class="badge badge-warning">{{ __('Novo') }}</label></td>
+                                                    @break
+                                                @case(\App\Models\Ticket::STATUS_REOPEN)
+                                                    <td><label class="badge badge-warning">{{ __('Novo') }}</label></td>
+                                                    @break
+                                                @case(\App\Models\Ticket::STATUS_IN_PROGRESS)
+                                                    <td><label class="badge badge-primary">{{ __('Em andamento') }}</label></td>
+                                                    @break
+                                                @case(\App\Models\Ticket::STATUS_CLOSED)
+                                                    <td><label class="badge badge-danger">{{ __('Fechado') }}</label></td>
+                                                    @break
+                                                @default
+                                                    <td><label class="badge badge-default">{{ $ticket->status }}</label></td>
+                                            @endswitch
                                             <td><a href="{{ route('customer.tickets.show', ['id' => $ticket->id]) }}"
                                                    class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a></td>
                                         </tr>

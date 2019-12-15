@@ -31,4 +31,14 @@ class TicketShowTest extends TestCase
         $response->assertViewIs('customer.tickets.show');
         $response->assertViewHas('ticket');
     }
+
+    public function testTicketNotFound()
+    {
+        $response = $this
+            ->from(route('customer.tickets.index'))
+            ->actingAs($this->customer)
+            ->get(route('customer.tickets.show', ['id' => 500]));
+
+        $response->assertRedirect(route('customer.tickets.index'));
+    }
 }
