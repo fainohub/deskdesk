@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Customer;
 use App\Helpers\LogContext;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTicketRequest;
-use App\Models\Customer;
 use App\Services\Contracts\TicketServiceInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -40,6 +39,19 @@ class TicketController extends Controller
     {
         try {
             return view('customer.tickets.create');
+        } catch (\Exception $exception) {
+            Log::error($exception->getMessage(), LogContext::context($exception));
+
+            return redirect()->back()->withErrors(__('Ocorreu um erro, por favor tente novamente mais tarde :('));
+        }
+    }
+
+    public function show($id)
+    {
+        try {
+            $ticket = $this->ticketService->find($id);
+
+            return view('customer.tickets.show')->with('ticket', $ticket);
         } catch (\Exception $exception) {
             Log::error($exception->getMessage(), LogContext::context($exception));
 

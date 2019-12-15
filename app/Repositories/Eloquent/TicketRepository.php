@@ -18,7 +18,6 @@ class TicketRepository extends Repository implements TicketRepositoryInterface
         return Ticket::class;
     }
 
-    //TODO: tentar adicionar num contrato
     public function ticketsPaginatedByCustomer(Customer $customer)
     {
         $this->pushCriteria(new ByCustomer($customer));

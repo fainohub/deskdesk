@@ -4,12 +4,12 @@ namespace Tests\Unit\Repositories\Eloquent;
 
 use Tests\TestCase;
 use App\Models\Customer;
-use App\Repositories\Eloquent\CustomerRepository;
+use App\Repositories\Contracts\CustomerRepositoryInterface;
 
 class CustomerRepositoryTest extends TestCase
 {
     /**
-     * @var CustomerRepository
+     * @var CustomerRepositoryInterface
      */
     private $customerRepository;
 
@@ -17,7 +17,7 @@ class CustomerRepositoryTest extends TestCase
     {
         parent::setUp();
 
-        $this->customerRepository = $this->app->make(CustomerRepository::class);
+        $this->customerRepository = $this->app->make(CustomerRepositoryInterface::class);
     }
 
     public function testAll()

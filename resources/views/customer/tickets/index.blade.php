@@ -44,7 +44,8 @@
                                             <td>{{ $ticket->title }}</td>
                                             <td>{{ $ticket->created_at->format('d/m/Y H:i:s') }}</td>
                                             <td><label class="badge badge-default">{{ $ticket->status }}</label></td>
-                                            <td><a href="#" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a></td>
+                                            <td><a href="{{ route('customer.tickets.show', ['id' => $ticket->id]) }}"
+                                                   class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>

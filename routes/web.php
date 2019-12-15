@@ -39,8 +39,9 @@ Route::group(['prefix' => 'customer', 'namespace' => 'Customer'], function (){
     Route::get('logout', 'LoginController@logout')->name('customer.logout');
 
     Route::group(['prefix' => 'tickets'], function (){
-        Route::get('/', 'TicketController@index')->name('customer.tickets.index');
-        Route::get('/create', 'TicketController@create')->name('customer.tickets.create');
-        Route::post('/', 'TicketController@store')->name('customer.tickets.store');
+        Route::get('', 'TicketController@index')->name('customer.tickets.index');
+        Route::post('', 'TicketController@store')->name('customer.tickets.store');
+        Route::get('create', 'TicketController@create')->name('customer.tickets.create');
+        Route::get('{id}', 'TicketController@show')->name('customer.tickets.show');
     });
 });

@@ -47,7 +47,7 @@ class TicketServiceTest extends TestCase
         $this->assertEquals($ticketFake->description, $ticket->description);
     }
 
-    public function testListPaginate()
+    public function testTicketsPaginatedByCustomer()
     {
         factory(Ticket::class)->create([
             'customer_id' => $this->customer->id

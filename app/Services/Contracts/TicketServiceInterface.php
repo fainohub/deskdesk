@@ -10,6 +10,7 @@ use App\Http\Requests\StoreTicketRequest;
 
 interface TicketServiceInterface
 {
+    public function find(int $id): Ticket;
 
     public function create(StoreTicketRequest $request, Customer $customer): Ticket;
 

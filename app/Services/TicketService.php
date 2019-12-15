@@ -7,6 +7,7 @@ namespace App\Services;
 use App\Models\Customer;
 use App\Models\Ticket;
 use App\Http\Requests\StoreTicketRequest;
+use App\Repositories\Exceptions\NotFoundException;
 use App\Services\Contracts\TicketServiceInterface;
 use App\Repositories\Contracts\TicketRepositoryInterface;
 
@@ -16,6 +17,17 @@ class TicketService implements TicketServiceInterface
 
     public function __construct(TicketRepositoryInterface $ticketRepository) {
         $this->ticketRepository = $ticketRepository;
+    }
+
+    public function find(int $id): Ticket
+    {
+        $ticket = $this->ticketRepository->find($id);
+
+        if (!$ticket) {
+            throw new NotFoundException('Not found ticket');
+        }
+
+        return $ticket;
     }
 
     public function create(StoreTicketRequest $request, Customer $customer): Ticket

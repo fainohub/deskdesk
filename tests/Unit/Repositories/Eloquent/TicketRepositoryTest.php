@@ -4,20 +4,28 @@ namespace Tests\Unit\Repositories\Eloquent;
 
 use Tests\TestCase;
 use App\Models\Ticket;
-use App\Repositories\Eloquent\TicketRepository;
+use App\Models\Customer;
+use App\Repositories\Contracts\TicketRepositoryInterface;
 
 class TicketRepositoryTest extends TestCase
 {
     /**
-     * @var TicketRepositoryTest
+     * @var TicketRepositoryInterface
      */
     private $ticketRepository;
+
+    /**
+     * @var Customer
+     */
+    private $customer;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->ticketRepository = $this->app->make(TicketRepository::class);
+        $this->ticketRepository = $this->app->make(TicketRepositoryInterface::class);
+
+        $this->customer = factory(Customer::class)->create();
     }
 
     public function testAll()
@@ -88,5 +96,16 @@ class TicketRepositoryTest extends TestCase
         $this->assertEquals($ticketFake->title, $ticket->title);
         $this->assertEquals($ticketFake->description, $ticket->description);
         $this->assertEquals($ticketFake->status, $ticket->status);
+    }
+
+    public function testTicketsPaginatedByCustomer()
+    {
+        factory(Ticket::class)->create([
+            'customer_id' => $this->customer->id
+        ]);
+
+        $tickets = $this->ticketRepository->ticketsPaginatedByCustomer($this->customer);
+
+        $this->assertNotEmpty($tickets);
     }
 }
