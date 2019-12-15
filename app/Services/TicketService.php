@@ -7,14 +7,14 @@ namespace App\Services;
 use App\Models\Customer;
 use App\Models\Ticket;
 use App\Http\Requests\StoreTicketRequest;
-use App\Repositories\Eloquent\TicketRepository;
 use App\Services\Contracts\TicketServiceInterface;
+use App\Repositories\Contracts\TicketRepositoryInterface;
 
 class TicketService implements TicketServiceInterface
 {
     private $ticketRepository;
 
-    public function __construct(TicketRepository $ticketRepository) {
+    public function __construct(TicketRepositoryInterface $ticketRepository) {
         $this->ticketRepository = $ticketRepository;
     }
 

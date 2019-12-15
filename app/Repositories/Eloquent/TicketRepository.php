@@ -6,10 +6,11 @@ namespace App\Repositories\Eloquent;
 
 use App\Models\Ticket;
 use App\Models\Customer;
+use App\Repositories\Contracts\TicketRepositoryInterface;
 use App\Repositories\Eloquent\Filters\ByCustomer;
 use App\Repositories\Eloquent\Filters\LatestByDate;
 
-class TicketRepository extends Repository
+class TicketRepository extends Repository implements TicketRepositoryInterface
 {
 
     public function model()
@@ -17,6 +18,7 @@ class TicketRepository extends Repository
         return Ticket::class;
     }
 
+    //TODO: tentar adicionar num contrato
     public function ticketsPaginatedByCustomer(Customer $customer)
     {
         $this->pushCriteria(new ByCustomer($customer));
