@@ -48,5 +48,7 @@ Route::group(['prefix' => 'customer', 'namespace' => 'Customer'], function (){
         Route::post('', 'TicketController@store')->name('customer.tickets.store');
         Route::get('create', 'TicketController@create')->name('customer.tickets.create');
         Route::get('{id}', 'TicketController@show')->name('customer.tickets.show');
+
+        Route::post('{id}/messages', 'TicketMessageController@store')->name('customer.tickets.message.store');
     });
 });
