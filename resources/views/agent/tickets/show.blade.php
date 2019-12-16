@@ -41,8 +41,7 @@
                                 <blockquote class="blockquote blockquote">
                                     <p>{{ $message->message }}</p>
                                     <footer class="blockquote-footer">
-                                        {{ $message->commentable->name }}
-                                        <cite title="Source Title">{{ $message->updated_at->format('d/m/Y H:m:i') }}</cite>
+                                        <p title="Source Title">{{ $message->commentable->name . ' - ' . $message->updated_at->format('d/m/Y H:m:i') }}</p>
                                     </footer>
                                 </blockquote>
                             @endforeach
@@ -57,26 +56,29 @@
                         <div class="card-body">
                             <h4 class="card-title">{{ __('Enviar mensagem') }}</h4>
 
-                            <div class="form-group row">
-                                <label for="description" class="col-sm-3 col-form-label">Mensagem</label>
-                                <div class="col-sm-9">
-                                        <textarea
-                                                name="message"
-                                                id="message"
-                                                class="form-control @error('message') is-invalid @enderror"
-                                                rows="10"
-                                        >{{ old('message') }}</textarea>
-                                    @error('message')
-                                        <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span>
-                                    @enderror
+                            <form class="forms-sample" method="POST" action="{{ route('agent.tickets.message.store', ['id' => $ticket->id]) }}">
+                                @csrf
+                                <div class="form-group row">
+                                    <label for="description" class="col-sm-3 col-form-label">Mensagem</label>
+                                    <div class="col-sm-9">
+                                                <textarea
+                                                        name="message"
+                                                        id="message"
+                                                        class="form-control @error('message') is-invalid @enderror"
+                                                        rows="10"
+                                                >{{ old('message') }}</textarea>
+                                        @error('message')
+                                            <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span>
+                                        @enderror
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group row">
-                                <div class="col-md-12 text-right">
-                                    <button type="submit" class="btn btn-primary">{{ __('Enviar') }}</button>
+                                <div class="form-group row">
+                                    <div class="col-md-12 text-right">
+                                        <button type="submit" class="btn btn-primary">{{ __('Enviar') }}</button>
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
