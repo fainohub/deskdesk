@@ -37,10 +37,15 @@
                         <div class="card-body">
                             <h4 class="card-title">{{ __('Mensagens') }}</h4>
 
-                            <blockquote class="blockquote blockquote">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                                <footer class="blockquote-footer">Thiago Faino <cite title="Source Title">15/12/2019 13:54</cite></footer>
-                            </blockquote>
+                            @foreach($ticket->messages as $message)
+                                <blockquote class="blockquote blockquote">
+                                    <p>{{ $message->message }}</p>
+                                    <footer class="blockquote-footer">
+                                        {{ $message->commentable->name }}
+                                        <cite title="Source Title">{{ $message->updated_at->format('d/m/Y H:m:i') }}</cite>
+                                    </footer>
+                                </blockquote>
+                            @endforeach
                         </div>
                     </div>
                 </div>
