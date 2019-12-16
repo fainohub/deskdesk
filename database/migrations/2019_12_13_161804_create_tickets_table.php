@@ -21,6 +21,9 @@ class CreateTicketsTable extends Migration
             $table->text('description');
             $table->string('status');
             $table->timestamps();
+
+            $table->foreign('customer_id')->references('id')->on('customers');
+            $table->foreign('agent_id')->references('id')->on('agents');
         });
     }
 
