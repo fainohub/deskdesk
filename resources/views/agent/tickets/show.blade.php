@@ -41,8 +41,7 @@
                                 <blockquote class="blockquote blockquote">
                                     <p>{{ $message->message }}</p>
                                     <footer class="blockquote-footer">
-                                        {{ $message->commentable->name }}
-                                        <cite title="Source Title">{{ $message->updated_at->format('d/m/Y H:m:i') }}</cite>
+                                        <p title="Source Title">{{ $message->commentable->name . ' - ' . $message->updated_at->format('d/m/Y H:m:i') }}</p>
                                     </footer>
                                 </blockquote>
                             @endforeach
