@@ -4,20 +4,31 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Models\Agent;
 use App\Models\Customer;
 use App\Models\Ticket;
 use App\Http\Requests\StoreTicketRequest;
-use App\Repositories\Criteria\LatestByDate;
-use App\Repositories\Eloquent\TicketRepository;
-use App\Repositories\Criteria\ByCustomer;
+use App\Services\Exceptions\NotFoundException;
 use App\Services\Contracts\TicketServiceInterface;
+use App\Repositories\Contracts\TicketRepositoryInterface;
 
 class TicketService implements TicketServiceInterface
 {
     private $ticketRepository;
 
-    public function __construct(TicketRepository $ticketRepository) {
+    public function __construct(TicketRepositoryInterface $ticketRepository) {
         $this->ticketRepository = $ticketRepository;
+    }
+
+    public function find(int $id): Ticket
+    {
+        $ticket = $this->ticketRepository->findWithMessages($id);
+
+        if (!$ticket) {
+            throw new NotFoundException('Not found ticket');
+        }
+
+        return $ticket;
     }
 
     public function create(StoreTicketRequest $request, Customer $customer): Ticket
@@ -32,11 +43,13 @@ class TicketService implements TicketServiceInterface
         return $this->ticketRepository->create($data);
     }
 
-    public function paginateByCustomer(Customer $customer)
+    public function ticketsPaginatedByCustomer(Customer $customer)
     {
-        $this->ticketRepository->pushCriteria(new ByCustomer($customer));
-        $this->ticketRepository->pushCriteria(new LatestByDate('updated_at'));
+        return $this->ticketRepository->ticketsPaginatedByCustomer($customer);
+    }
 
-        return $this->ticketRepository->paginate();
+    public function ticketsPaginatedByAgent(Agent $agent)
+    {
+        return $this->ticketRepository->ticketsPaginatedByAgent($agent);
     }
 }

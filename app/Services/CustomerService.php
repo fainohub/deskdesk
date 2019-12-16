@@ -6,21 +6,25 @@ namespace App\Services;
 
 use App\Models\Customer;
 use App\Http\Requests\StoreCustomerRequest;
-use App\Repositories\Eloquent\CustomerRepository;
+use App\Repositories\Contracts\CustomerRepositoryInterface;
+use App\Repositories\Contracts\TicketRepositoryInterface;
 use App\Services\Contracts\CustomerServiceInterface;
 use App\Services\Contracts\PasswordServiceInterface;
 
 class CustomerService implements CustomerServiceInterface
 {
-    private $customerRepository;
     private $passwordService;
+    private $ticketRepository;
+    private $customerRepository;
 
     public function __construct(
-        CustomerRepository $customerRepository,
-        PasswordServiceInterface $passwordService
+        PasswordServiceInterface $passwordService,
+        TicketRepositoryInterface $ticketRepository,
+        CustomerRepositoryInterface $customerRepository
     ) {
         $this->customerRepository = $customerRepository;
         $this->passwordService = $passwordService;
+        $this->ticketRepository = $ticketRepository;
     }
 
     public function create(StoreCustomerRequest $request): Customer

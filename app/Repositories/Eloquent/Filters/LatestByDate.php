@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories\Criteria;
+namespace App\Repositories\Eloquent\Filters;
 
+use App\Repositories\Contracts\Criteria;
 use App\Repositories\Contracts\RepositoryInterface;
 
 class LatestByDate extends Criteria

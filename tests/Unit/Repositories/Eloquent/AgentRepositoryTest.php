@@ -4,12 +4,12 @@ namespace Tests\Unit\Repositories\Eloquent;
 
 use Tests\TestCase;
 use App\Models\Agent;
-use App\Repositories\Eloquent\AgentRepository;
+use App\Repositories\Contracts\AgentRepositoryInterface;
 
 class AgentRepositoryTest extends TestCase
 {
     /**
-     * @var AgentRepository
+     * @var AgentRepositoryInterface
      */
     private $agentRepository;
 
@@ -17,7 +17,7 @@ class AgentRepositoryTest extends TestCase
     {
         parent::setUp();
 
-        $this->agentRepository = $this->app->make(AgentRepository::class);
+        $this->agentRepository = $this->app->make(AgentRepositoryInterface::class);
     }
 
     public function testAll()

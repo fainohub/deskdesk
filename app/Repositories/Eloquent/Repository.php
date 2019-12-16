@@ -6,10 +6,10 @@ namespace App\Repositories\Eloquent;
 
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
+use App\Repositories\Contracts\Criteria;
 use App\Repositories\Exceptions\RepositoryException;
 use App\Repositories\Contracts\CriteriaInterface;
 use App\Repositories\Contracts\RepositoryInterface;
-use App\Repositories\Criteria\Criteria;
 
 abstract class Repository implements RepositoryInterface, CriteriaInterface
 {
@@ -60,29 +60,6 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
         return $this->model->destroy($id);
     }
 
-    public function with(array $relations)
-    {
-        $this->model = $this->model->with($relations);
-
-        return $this;
-    }
-
-    private function makeModel()
-    {
-        $newModel = resolve($this->model());
-
-        if (!$newModel instanceof Model) {
-            throw new RepositoryException("Class {$newModel} must be an instance of Illuminate\\Database\\Eloquent\\Model");
-        }
-
-        return $this->model = $newModel;
-    }
-
-    public function getCriteria()
-    {
-        return $this->criteria;
-    }
-
     public function applyCriteria()
     {
         foreach ($this->getCriteria() as $criteria) {
@@ -99,5 +76,28 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
         $this->criteria->push($criteria);
 
         return $this;
+    }
+
+    public function with(array $relations)
+    {
+        $this->model = $this->model->with($relations);
+
+        return $this;
+    }
+
+    private function makeModel()
+    {
+        $newModel = resolve($this->model()); //Create model
+
+        if (!$newModel instanceof Model) {
+            throw new RepositoryException("Class {$newModel} must be an instance of Illuminate\\Database\\Eloquent\\Model");
+        }
+
+        return $this->model = $newModel;
+    }
+
+    public function getCriteria()
+    {
+        return $this->criteria;
     }
 }

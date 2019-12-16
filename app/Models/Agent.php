@@ -23,4 +23,9 @@ class Agent extends Authenticatable
         'password',
         'remember_token'
     ];
+
+    public function ticketMessages()
+    {
+        return $this->morphMany(TicketMessage::class, 'commentable');
+    }
 }

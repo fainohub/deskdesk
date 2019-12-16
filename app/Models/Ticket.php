@@ -30,4 +30,9 @@ class Ticket extends Model
     {
         return $this->belongsTo(Agent::class, 'agent_id');
     }
+
+    public function messages()
+    {
+        return $this->hasMany(TicketMessage::class, 'ticket_id');
+    }
 }

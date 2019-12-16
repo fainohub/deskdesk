@@ -27,6 +27,11 @@ Route::group(['prefix' => 'agent', 'namespace' => 'Agent'], function (){
     Route::group(['prefix' => 'dashboard'], function (){
         Route::get('/', 'DashboardController@index')->name('agent.dashboard.index');
     });
+
+    Route::group(['prefix' => 'tickets'], function (){
+        Route::get('', 'TicketController@index')->name('agent.tickets.index');
+        Route::get('{id}', 'TicketController@show')->name('agent.tickets.show');
+    });
 });
 
 Route::group(['prefix' => 'customer', 'namespace' => 'Customer'], function (){
@@ -39,8 +44,9 @@ Route::group(['prefix' => 'customer', 'namespace' => 'Customer'], function (){
     Route::get('logout', 'LoginController@logout')->name('customer.logout');
 
     Route::group(['prefix' => 'tickets'], function (){
-        Route::get('/', 'TicketController@index')->name('customer.tickets.index');
-        Route::get('/create', 'TicketController@create')->name('customer.tickets.create');
-        Route::post('/', 'TicketController@store')->name('customer.tickets.store');
+        Route::get('', 'TicketController@index')->name('customer.tickets.index');
+        Route::post('', 'TicketController@store')->name('customer.tickets.store');
+        Route::get('create', 'TicketController@create')->name('customer.tickets.create');
+        Route::get('{id}', 'TicketController@show')->name('customer.tickets.show');
     });
 });

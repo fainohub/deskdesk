@@ -6,7 +6,7 @@ use Tests\TestCase;
 use App\Models\Customer;
 use App\Models\Ticket;
 
-class TicketCreateTest extends TestCase
+class CustomerTicketCreateTest extends TestCase
 {
     private $customer;
 
@@ -20,7 +20,7 @@ class TicketCreateTest extends TestCase
     public function testCreateTicketIndex()
     {
         $response = $this
-            ->actingAs($this->customer)
+            ->actingAs($this->customer, 'customer')
             ->get(route('customer.tickets.create'));
 
         $response->assertSuccessful();
@@ -38,7 +38,7 @@ class TicketCreateTest extends TestCase
         ];
 
         $response = $this
-            ->actingAs($this->customer)
+            ->actingAs($this->customer, 'customer')
             ->post(route('customer.tickets.store'), $data);
 
         $response->assertRedirect(route('customer.tickets.index'));
