@@ -31,6 +31,8 @@ Route::group(['prefix' => 'agent', 'namespace' => 'Agent'], function (){
     Route::group(['prefix' => 'tickets'], function (){
         Route::get('', 'TicketController@index')->name('agent.tickets.index');
         Route::get('{id}', 'TicketController@show')->name('agent.tickets.show');
+
+        Route::post('{id}/messages', 'TicketMessageController@store')->name('agent.tickets.message.store');
     });
 });
 
