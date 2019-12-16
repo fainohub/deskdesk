@@ -20,7 +20,7 @@ class CustomerTicketCreateTest extends TestCase
     public function testCreateTicketIndex()
     {
         $response = $this
-            ->actingAs($this->customer)
+            ->actingAs($this->customer, 'customer')
             ->get(route('customer.tickets.create'));
 
         $response->assertSuccessful();
@@ -38,7 +38,7 @@ class CustomerTicketCreateTest extends TestCase
         ];
 
         $response = $this
-            ->actingAs($this->customer)
+            ->actingAs($this->customer, 'customer')
             ->post(route('customer.tickets.store'), $data);
 
         $response->assertRedirect(route('customer.tickets.index'));

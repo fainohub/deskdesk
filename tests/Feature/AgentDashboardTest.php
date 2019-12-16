@@ -22,11 +22,11 @@ class AgentDashboardTest extends TestCase
     public function testAgentDashboardTest()
     {
         $response = $this
-            ->actingAs($this->agent)
+            ->actingAs($this->agent, 'agent')
             ->get(route('agent.dashboard.index'));
 
-        $response->dump();
 
-//        $response->assertStatus(200);
+        $response->assertSuccessful();
+        $response->assertViewIs('agent.dashboard.index');
     }
 }

@@ -19,7 +19,7 @@ class CustomerTicketIndexTest extends TestCase
     public function testTicketIndex()
     {
         $response = $this
-            ->actingAs($this->customer)
+            ->actingAs($this->customer, 'customer')
             ->get(route('customer.tickets.index'));
 
         $response->assertSuccessful();

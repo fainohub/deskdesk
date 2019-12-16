@@ -22,7 +22,7 @@ class AgentTicketIndexTest extends TestCase
     public function testTicketIndex()
     {
         $response = $this
-            ->actingAs($this->agent)
+            ->actingAs($this->agent, 'agent')
             ->get(route('agent.tickets.index'));
 
         $response->assertSuccessful();

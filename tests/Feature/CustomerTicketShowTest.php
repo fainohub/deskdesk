@@ -24,7 +24,7 @@ class CustomerTicketShowTest extends TestCase
         ]);
 
         $response = $this
-            ->actingAs($this->customer)
+            ->actingAs($this->customer, 'customer')
             ->get(route('customer.tickets.show', ['id' => $ticket->id]));
 
         $response->assertSuccessful();
@@ -36,7 +36,7 @@ class CustomerTicketShowTest extends TestCase
     {
         $response = $this
             ->from(route('customer.tickets.index'))
-            ->actingAs($this->customer)
+            ->actingAs($this->customer, 'customer')
             ->get(route('customer.tickets.show', ['id' => 500]));
 
         $response->assertRedirect(route('customer.tickets.index'));
