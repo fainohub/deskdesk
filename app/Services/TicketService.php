@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Models\Agent;
 use App\Models\Customer;
 use App\Models\Ticket;
 use App\Http\Requests\StoreTicketRequest;
@@ -45,5 +46,10 @@ class TicketService implements TicketServiceInterface
     public function ticketsPaginatedByCustomer(Customer $customer)
     {
         return $this->ticketRepository->ticketsPaginatedByCustomer($customer);
+    }
+
+    public function ticketsPaginatedByAgent(Agent $agent)
+    {
+        return $this->ticketRepository->ticketsPaginatedByAgent($agent);
     }
 }

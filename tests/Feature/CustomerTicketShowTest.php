@@ -6,7 +6,7 @@ use Tests\TestCase;
 use App\Models\Ticket;
 use App\Models\Customer;
 
-class TicketShowTest extends TestCase
+class CustomerTicketShowTest extends TestCase
 {
     private $customer;
 

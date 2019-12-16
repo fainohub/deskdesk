@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use App\Models\Customer;
 
-class TicketIndexTest extends TestCase
+class CustomerTicketIndexTest extends TestCase
 {
     private $customer;
 

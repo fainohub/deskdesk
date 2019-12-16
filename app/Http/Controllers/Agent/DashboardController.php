@@ -3,17 +3,13 @@
 namespace App\Http\Controllers\Agent;
 
 use App\Http\Controllers\Controller;
-use App\Services\Contracts\CustomerServiceInterface;
 
 class DashboardController extends Controller
 {
-    private $customerService;
 
-    public function __construct(CustomerServiceInterface $customerService)
+    public function __construct()
     {
         $this->middleware('auth:agent');
-
-        $this->customerService = $customerService;
     }
 
     public function index()

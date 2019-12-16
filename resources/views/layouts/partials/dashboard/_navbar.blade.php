@@ -2,7 +2,6 @@
 
     <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
         <a class="navbar-brand brand-logo" href="{{ route('agent.dashboard.index') }}"><img src="{{ asset('images/deskdesk.png') }}" alt="DeskDesk" /></a>
-        <a class="navbar-brand brand-logo-mini" href="{{ route('agent.dashboard.index') }}"><img src="{{ asset('images/deskdesk-icon.png') }}" alt="DeskDesk" /></a>
     </div>
 
     <div class="navbar-menu-wrapper d-flex align-items-stretch">

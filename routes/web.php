@@ -27,6 +27,11 @@ Route::group(['prefix' => 'agent', 'namespace' => 'Agent'], function (){
     Route::group(['prefix' => 'dashboard'], function (){
         Route::get('/', 'DashboardController@index')->name('agent.dashboard.index');
     });
+
+    Route::group(['prefix' => 'tickets'], function (){
+        Route::get('', 'TicketController@index')->name('agent.tickets.index');
+        Route::get('{id}', 'TicketController@show')->name('agent.tickets.show');
+    });
 });
 
 Route::group(['prefix' => 'customer', 'namespace' => 'Customer'], function (){
