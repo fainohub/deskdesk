@@ -3,18 +3,18 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use App\Models\Customer;
+use App\Models\Agent;
 use App\Models\TicketMessage;
 
-class CustomerTicketMessageCreateTest extends TestCase
+class AgentTicketMessageCreateTest extends TestCase
 {
-    private $customer;
+    private $agent;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->customer = factory(Customer::class)->create();
+        $this->agent = factory(Agent::class)->create();
     }
 
     public function testCreateMessageSuccess()
@@ -26,10 +26,10 @@ class CustomerTicketMessageCreateTest extends TestCase
         ];
 
         $response = $this
-            ->actingAs($this->customer, 'customer')
-            ->from(route('customer.tickets.show', ['id' => $ticketMessage->ticket_id]))
-            ->post(route('customer.tickets.message.store', ['id' => $ticketMessage->ticket_id]), $data);
+            ->actingAs($this->agent, 'agent')
+            ->from(route('agent.tickets.show', ['id' => $ticketMessage->ticket_id]))
+            ->post(route('agent.tickets.message.store', ['id' => $ticketMessage->ticket_id]), $data);
 
-        $response->assertRedirect(route('customer.tickets.show', ['id' => $ticketMessage->ticket_id]));
+        $response->assertRedirect(route('agent.tickets.show', ['id' => $ticketMessage->ticket_id]));
     }
 }
