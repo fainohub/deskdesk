@@ -3,6 +3,7 @@
 namespace Tests\Unit\Repositories\Eloquent;
 
 use Tests\TestCase;
+use App\Models\Agent;
 use App\Models\Ticket;
 use App\Models\Customer;
 use App\Repositories\Contracts\TicketRepositoryInterface;
@@ -19,6 +20,11 @@ class TicketRepositoryTest extends TestCase
      */
     private $customer;
 
+    /**
+     * @var Agent
+     */
+    private $agent;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -26,6 +32,7 @@ class TicketRepositoryTest extends TestCase
         $this->ticketRepository = $this->app->make(TicketRepositoryInterface::class);
 
         $this->customer = factory(Customer::class)->create();
+        $this->agent = factory(Agent::class)->create();
     }
 
     public function testAll()
@@ -105,6 +112,18 @@ class TicketRepositoryTest extends TestCase
         ]);
 
         $tickets = $this->ticketRepository->ticketsPaginatedByCustomer($this->customer);
+
+        $this->assertNotEmpty($tickets);
+    }
+
+    public function testTicketsPaginatedByAgent()
+    {
+        factory(Ticket::class)->create([
+            'customer_id' => $this->customer->id,
+            'agent_id'    => $this->agent->id
+        ]);
+
+        $tickets = $this->ticketRepository->ticketsPaginatedByAgent($this->agent);
 
         $this->assertNotEmpty($tickets);
     }
