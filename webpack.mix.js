@@ -25,6 +25,7 @@ const mix = require('laravel-mix');
 
 mix.copy('resources/theme/css/style.css', 'public/css/style.css');
 
+mix.copyDirectory('resources/images', 'public/images');
 mix.copyDirectory('resources/theme/fonts', 'public/fonts');
 mix.copyDirectory('resources/theme/images', 'public/images');
 mix.copyDirectory('resources/theme/js', 'public/js');

@@ -22,6 +22,7 @@
                     <div class="card">
                         <div class="card-body">
                             <a href="{{ route('customer.tickets.index') }}">Meus tickets</a>
+                            <a href="{{ route('agent.dashboard.index') }}">Administrativo</a>
                         </div>
                     </div>
                 </div>

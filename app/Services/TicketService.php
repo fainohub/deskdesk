@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Models\Agent;
 use App\Models\Customer;
 use App\Models\Ticket;
 use App\Http\Requests\StoreTicketRequest;
+use App\Services\Exceptions\NotFoundException;
 use App\Services\Contracts\TicketServiceInterface;
 use App\Repositories\Contracts\TicketRepositoryInterface;
 
@@ -16,6 +18,17 @@ class TicketService implements TicketServiceInterface
 
     public function __construct(TicketRepositoryInterface $ticketRepository) {
         $this->ticketRepository = $ticketRepository;
+    }
+
+    public function find(int $id): Ticket
+    {
+        $ticket = $this->ticketRepository->findWithMessages($id);
+
+        if (!$ticket) {
+            throw new NotFoundException('Not found ticket');
+        }
+
+        return $ticket;
     }
 
     public function create(StoreTicketRequest $request, Customer $customer): Ticket
@@ -33,5 +46,10 @@ class TicketService implements TicketServiceInterface
     public function ticketsPaginatedByCustomer(Customer $customer)
     {
         return $this->ticketRepository->ticketsPaginatedByCustomer($customer);
+    }
+
+    public function ticketsPaginatedByAgent(Agent $agent)
+    {
+        return $this->ticketRepository->ticketsPaginatedByAgent($agent);
     }
 }

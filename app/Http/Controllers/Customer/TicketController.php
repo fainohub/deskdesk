@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Customer;
 use App\Helpers\LogContext;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTicketRequest;
-use App\Models\Customer;
+use App\Services\Exceptions\NotFoundException;
 use App\Services\Contracts\TicketServiceInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -23,17 +23,43 @@ class TicketController extends Controller
 
     public function index()
     {
-        $customer = Auth::user();
+        try {
+            $customer = Auth::user();
 
-        $tickets = $this->ticketService->ticketsPaginatedByCustomer($customer);
+            $tickets = $this->ticketService->ticketsPaginatedByCustomer($customer);
 
-        return view('customer.tickets.index')
-            ->with('tickets', $tickets);
+            return view('customer.tickets.index')->with('tickets', $tickets);
+        } catch (\Exception $exception) {
+            Log::error($exception->getMessage(), LogContext::context($exception));
+
+            return redirect()->back()->withErrors(__('Ocorreu um erro, por favor tente novamente mais tarde :('));
+        }
     }
 
     public function create()
     {
-        return view('customer.tickets.create');
+        try {
+            return view('customer.tickets.create');
+        } catch (\Exception $exception) {
+            Log::error($exception->getMessage(), LogContext::context($exception));
+
+            return redirect()->back()->withErrors(__('Ocorreu um erro, por favor tente novamente mais tarde :('));
+        }
+    }
+
+    public function show($id)
+    {
+        try {
+            $ticket = $this->ticketService->find($id);
+
+            return view('customer.tickets.show')->with('ticket', $ticket);
+        } catch (NotFoundException $exception) {
+            return redirect()->back()->withErrors(__($exception->getMessage()));
+        } catch (\Exception $exception) {
+            Log::error($exception->getMessage(), LogContext::context($exception));
+
+            return redirect()->back()->withErrors(__('Ocorreu um erro, por favor tente novamente mais tarde :('));
+        }
     }
 
     public function store(StoreTicketRequest $request)

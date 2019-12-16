@@ -2,22 +2,38 @@
 
 namespace Tests\Unit\Repositories\Eloquent;
 
+use App\Models\TicketMessage;
 use Tests\TestCase;
+use App\Models\Agent;
 use App\Models\Ticket;
-use App\Repositories\Eloquent\TicketRepository;
+use App\Models\Customer;
+use App\Repositories\Contracts\TicketRepositoryInterface;
 
 class TicketRepositoryTest extends TestCase
 {
     /**
-     * @var TicketRepositoryTest
+     * @var TicketRepositoryInterface
      */
     private $ticketRepository;
+
+    /**
+     * @var Customer
+     */
+    private $customer;
+
+    /**
+     * @var Agent
+     */
+    private $agent;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->ticketRepository = $this->app->make(TicketRepository::class);
+        $this->ticketRepository = $this->app->make(TicketRepositoryInterface::class);
+
+        $this->customer = factory(Customer::class)->create();
+        $this->agent = factory(Agent::class)->create();
     }
 
     public function testAll()
@@ -88,5 +104,49 @@ class TicketRepositoryTest extends TestCase
         $this->assertEquals($ticketFake->title, $ticket->title);
         $this->assertEquals($ticketFake->description, $ticket->description);
         $this->assertEquals($ticketFake->status, $ticket->status);
+    }
+
+    public function testTicketsPaginatedByCustomer()
+    {
+        factory(Ticket::class)->create([
+            'customer_id' => $this->customer->id
+        ]);
+
+        $tickets = $this->ticketRepository->ticketsPaginatedByCustomer($this->customer);
+
+        $this->assertNotEmpty($tickets);
+    }
+
+    public function testTicketsPaginatedByAgent()
+    {
+        factory(Ticket::class)->create([
+            'customer_id' => $this->customer->id,
+            'agent_id'    => $this->agent->id
+        ]);
+
+        $tickets = $this->ticketRepository->ticketsPaginatedByAgent($this->agent);
+
+        $this->assertNotEmpty($tickets);
+    }
+
+    public function testFindWithMessages()
+    {
+        $ticketFake = factory(Ticket::class)->create();
+
+        factory(TicketMessage::class, 5)->create([
+            'ticket_id'        => $ticketFake->id,
+            'commentable_id'   => $ticketFake->customer_id,
+            'commentable_type' => Customer::class
+        ]);
+
+        $ticket = $this->ticketRepository->findWithMessages($ticketFake->id);
+
+        $this->assertInstanceOf(Ticket::class, $ticket);
+        $this->assertEquals($ticketFake->id, $ticket->id);
+        $this->assertEquals($ticketFake->customer_id, $ticket->customer_id);
+        $this->assertEquals($ticketFake->title, $ticket->title);
+        $this->assertEquals($ticketFake->description, $ticket->description);
+        $this->assertEquals($ticketFake->status, $ticket->status);
+        $this->assertNotEmpty($ticket->messages);
     }
 }

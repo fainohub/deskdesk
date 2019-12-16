@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use App\Models\Customer;
 
-class TicketIndexTest extends TestCase
+class CustomerTicketIndexTest extends TestCase
 {
     private $customer;
 
@@ -19,7 +19,7 @@ class TicketIndexTest extends TestCase
     public function testTicketIndex()
     {
         $response = $this
-            ->actingAs($this->customer)
+            ->actingAs($this->customer, 'customer')
             ->get(route('customer.tickets.index'));
 
         $response->assertSuccessful();

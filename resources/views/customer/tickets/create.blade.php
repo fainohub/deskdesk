@@ -50,7 +50,7 @@
                                                 id="description"
                                                 class="form-control @error('description') is-invalid @enderror"
                                                 rows="10"
-                                        ></textarea>
+                                        >{{ old('description') }}</textarea>
                                         @error('description')
                                             <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span>
                                         @enderror

@@ -3,10 +3,12 @@
 namespace Tests\Unit\Repositories\Eloquent;
 
 use Tests\TestCase;
+use App\Models\Agent;
 use App\Models\Ticket;
 use App\Models\Customer;
 use App\Http\Requests\StoreTicketRequest;
 use App\Services\Contracts\TicketServiceInterface;
+use App\Services\Exceptions\NotFoundException;
 
 class TicketServiceTest extends TestCase
 {
@@ -20,6 +22,11 @@ class TicketServiceTest extends TestCase
      */
     private $customer;
 
+    /**
+     * @var Agent
+     */
+    private $agent;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -27,6 +34,7 @@ class TicketServiceTest extends TestCase
         $this->ticketService = $this->app->make(TicketServiceInterface::class);
 
         $this->customer = factory(Customer::class)->create();
+        $this->agent = factory(Agent::class)->create();
     }
 
     public function testCreate()
@@ -47,7 +55,7 @@ class TicketServiceTest extends TestCase
         $this->assertEquals($ticketFake->description, $ticket->description);
     }
 
-    public function testListPaginate()
+    public function testTicketsPaginatedByCustomer()
     {
         factory(Ticket::class)->create([
             'customer_id' => $this->customer->id
@@ -56,5 +64,35 @@ class TicketServiceTest extends TestCase
         $tickets = $this->ticketService->ticketsPaginatedByCustomer($this->customer);
 
         $this->assertNotEmpty($tickets);
+    }
+
+    public function testTicketsPaginatedByAgent()
+    {
+        factory(Ticket::class)->create([
+            'customer_id' => $this->customer->id,
+            'agent_id'    => $this->agent->id
+        ]);
+
+        $tickets = $this->ticketService->ticketsPaginatedByAgent($this->agent);
+
+        $this->assertNotEmpty($tickets);
+    }
+
+    public function testFindSuccess()
+    {
+        $ticketFaker = factory(Ticket::class)->create([
+            'customer_id' => $this->customer->id
+        ]);
+
+        $ticket = $this->ticketService->find($ticketFaker->id);
+
+        $this->assertInstanceOf(Ticket::class, $ticket);
+    }
+
+    public function testNotFoundException()
+    {
+        $this->expectException(NotFoundException::class);
+
+        $this->ticketService->find(500);
     }
 }

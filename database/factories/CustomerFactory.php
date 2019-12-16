@@ -7,8 +7,10 @@ use Faker\Generator as Faker;
 
 $factory->define(Customer::class, function (Faker $faker) {
     return [
-        'name'     => $faker->name,
-        'email'    => $faker->unique()->safeEmail,
-        'password' => $faker->password(8)
+        'name'       => $faker->name,
+        'email'      => $faker->unique()->safeEmail,
+        'password'   => $faker->password(8),
+        'created_at' => now(),
+        'updated_at' => now(),
     ];
 });

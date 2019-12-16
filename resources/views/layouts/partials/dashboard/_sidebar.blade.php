@@ -9,7 +9,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ route('agent.tickets.index') }}">
                 <span class="icon-bg"><i class="mdi mdi-bookmark-outline"></i></span>
                 <span class="menu-title">Tickets</span>
             </a>
