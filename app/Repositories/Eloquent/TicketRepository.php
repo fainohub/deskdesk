@@ -35,4 +35,9 @@ class TicketRepository extends Repository implements TicketRepositoryInterface
 
         return $this->paginate();
     }
+
+    public function findWithMessages(int $id): ?Ticket
+    {
+        return $this->model->with('messages')->find($id);
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Repositories\Eloquent;
 
+use App\Models\TicketMessage;
 use Tests\TestCase;
 use App\Models\Agent;
 use App\Models\Ticket;
@@ -126,5 +127,26 @@ class TicketRepositoryTest extends TestCase
         $tickets = $this->ticketRepository->ticketsPaginatedByAgent($this->agent);
 
         $this->assertNotEmpty($tickets);
+    }
+
+    public function testFindWithMessages()
+    {
+        $ticketFake = factory(Ticket::class)->create();
+
+        factory(TicketMessage::class, 5)->create([
+            'ticket_id'        => $ticketFake->id,
+            'commentable_id'   => $ticketFake->customer_id,
+            'commentable_type' => Customer::class
+        ]);
+
+        $ticket = $this->ticketRepository->findWithMessages($ticketFake->id);
+
+        $this->assertInstanceOf(Ticket::class, $ticket);
+        $this->assertEquals($ticketFake->id, $ticket->id);
+        $this->assertEquals($ticketFake->customer_id, $ticket->customer_id);
+        $this->assertEquals($ticketFake->title, $ticket->title);
+        $this->assertEquals($ticketFake->description, $ticket->description);
+        $this->assertEquals($ticketFake->status, $ticket->status);
+        $this->assertNotEmpty($ticket->messages);
     }
 }

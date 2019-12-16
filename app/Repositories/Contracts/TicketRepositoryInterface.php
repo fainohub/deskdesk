@@ -6,6 +6,7 @@ namespace App\Repositories\Contracts;
 
 use App\Models\Agent;
 use App\Models\Customer;
+use App\Models\Ticket;
 
 interface TicketRepositoryInterface extends RepositoryInterface, CriteriaInterface
 {
@@ -13,4 +14,6 @@ interface TicketRepositoryInterface extends RepositoryInterface, CriteriaInterfa
     public function ticketsPaginatedByCustomer(Customer $customer);
 
     public function ticketsPaginatedByAgent(Agent $agent);
+
+    public function findWithMessages(int $id): ?Ticket;
 }

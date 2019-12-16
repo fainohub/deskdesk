@@ -22,7 +22,7 @@ class TicketService implements TicketServiceInterface
 
     public function find(int $id): Ticket
     {
-        $ticket = $this->ticketRepository->find($id);
+        $ticket = $this->ticketRepository->findWithMessages($id);
 
         if (!$ticket) {
             throw new NotFoundException('Not found ticket');
