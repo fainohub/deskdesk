@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 
+use App\Services\Contracts\TicketMessageServiceInterface;
+use App\Services\TicketMessageService;
 use Illuminate\Support\ServiceProvider;
 use App\Services\TicketService;
 use App\Services\CustomerService;
@@ -43,6 +45,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(CustomerServiceInterface::class, CustomerService::class);
         $this->app->bind(TicketServiceInterface::class, TicketService::class);
         $this->app->bind(PasswordServiceInterface::class, PasswordHashService::class);
+        $this->app->bind(TicketMessageServiceInterface::class, TicketMessageService::class);
     }
 
     /**

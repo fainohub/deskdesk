@@ -87,4 +87,13 @@ class TicketMessageRepositoryTest extends TestCase
         $this->assertEquals($ticketMessageFake->ticket_id, $ticketMessage->ticket_id);
         $this->assertEquals($ticketMessageFake->message, $ticketMessage->message);
     }
+
+    public function testAllByTicket()
+    {
+        $ticketMessageFake = factory(TicketMessage::class)->create();
+
+        $ticketMessages = $this->ticketMessageRepository->allByTicket($ticketMessageFake->ticket_id);
+
+        $this->assertNotEmpty($ticketMessages);
+    }
 }
