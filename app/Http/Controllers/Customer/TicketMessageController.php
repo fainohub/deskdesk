@@ -27,11 +27,15 @@ class TicketMessageController extends Controller
 
             $this->ticketMessageService->createCustomerMessage($request, $id, $customer);
 
+            session()->flash('success_message', __('Mensagem salva com sucesso!'));
+
             return redirect()->back();
         } catch (\Exception $exception) {
             Log::error($exception->getMessage(), LogContext::context($exception));
 
-            return redirect()->back()->withErrors(__('Ocorreu um erro, por favor tente novamente mais tarde :('));
+            session()->flash('error_message', __('Ocorreu um erro, por favor tente novamente mais tarde :('));
+
+            return redirect()->back();
         }
     }
 }

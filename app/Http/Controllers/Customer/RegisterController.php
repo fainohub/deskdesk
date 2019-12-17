@@ -36,11 +36,15 @@ class RegisterController extends Controller
 
             $this->guard()->login($customer);
 
+            session()->flash('success_message', __('Cadastro feito com sucesso!'));
+
             return redirect()->route('customer.tickets.index');
         } catch (Exception $exception) {
             Log::error($exception->getMessage(), LogContext::context($exception));
 
-            return redirect()->back()->withErrors(__('Ocorreu um erro, por favor tente novamente mais tarde :('));
+            session()->flash('error_message', __('Ocorreu um erro, por favor tente novamente mais tarde :('));
+
+            return redirect()->back();
         }
     }
 }
