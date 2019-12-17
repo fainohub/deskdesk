@@ -24,7 +24,7 @@ class TicketMessageController extends Controller
 
         $this->ticketMessageService->createAgentMessage($request, $id, $agent);
 
-        session()->flash('success_message', __('Mensagem salva com sucesso!'));
+        session()->flash('success_message', __('Mensagem enviada com sucesso!'));
 
         return redirect()->back();
     }
