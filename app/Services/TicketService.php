@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Events\TicketCreated;
 use App\Models\Agent;
 use App\Models\Customer;
 use App\Models\Ticket;
@@ -15,9 +16,14 @@ use App\Repositories\Contracts\TicketRepositoryInterface;
 class TicketService implements TicketServiceInterface
 {
     private $ticketRepository;
+    private $findAgentServiceFactory;
 
-    public function __construct(TicketRepositoryInterface $ticketRepository) {
+    public function __construct(
+        TicketRepositoryInterface $ticketRepository,
+        FindAgentServiceFactory $findAgentServiceFactory
+    ) {
         $this->ticketRepository = $ticketRepository;
+        $this->findAgentServiceFactory = $findAgentServiceFactory;
     }
 
     public function find(int $id): Ticket
@@ -40,7 +46,25 @@ class TicketService implements TicketServiceInterface
             'status'      => Ticket::STATUS_OPEN
         ];
 
-        return $this->ticketRepository->create($data);
+        $ticket = $this->ticketRepository->create($data);
+
+        if ($ticket) {
+            event(new TicketCreated($ticket));
+        }
+
+        return $ticket;
+    }
+
+    public function allocate(Ticket $ticket): Ticket
+    {
+        $findAgentService = $this->findAgentServiceFactory->create();
+
+        $agent = $findAgentService->find();
+
+        $ticket->agent()->associate($agent);
+        $ticket->save();
+
+        return $ticket;
     }
 
     public function ticketsPaginatedByCustomer(Customer $customer)
