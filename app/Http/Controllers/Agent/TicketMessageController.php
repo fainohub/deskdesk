@@ -27,7 +27,7 @@ class TicketMessageController extends Controller
 
             $this->ticketMessageService->createAgentMessage($request, $id, $agent);
 
-            return redirect()->back();
+            return redirect()->with('success_message', __('Sucesso'))->back();
         } catch (\Exception $exception) {
             Log::error($exception->getMessage(), LogContext::context($exception));
 
