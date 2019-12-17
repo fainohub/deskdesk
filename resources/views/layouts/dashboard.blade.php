@@ -43,8 +43,6 @@
     <script type="text/javascript" src="{{ asset('js/hoverable-collapse.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/misc.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/dashboard.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/PNotify.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/PNotifyButtons.js') }}"></script>
 
     @include('layouts.partials._notification')
 
