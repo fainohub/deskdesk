@@ -32,7 +32,9 @@ class TicketController extends Controller
         } catch (\Exception $exception) {
             Log::error($exception->getMessage(), LogContext::context($exception));
 
-            return redirect()->back()->withErrors(__('Ocorreu um erro, por favor tente novamente mais tarde :('));
+            session()->flash('error_message', __('Ocorreu um erro, por favor tente novamente mais tarde :('));
+
+            return redirect()->back();
         }
     }
 
@@ -43,7 +45,9 @@ class TicketController extends Controller
         } catch (\Exception $exception) {
             Log::error($exception->getMessage(), LogContext::context($exception));
 
-            return redirect()->back()->withErrors(__('Ocorreu um erro, por favor tente novamente mais tarde :('));
+            session()->flash('error_message', __('Ocorreu um erro, por favor tente novamente mais tarde :('));
+
+            return redirect()->back();
         }
     }
 
@@ -54,11 +58,15 @@ class TicketController extends Controller
 
             return view('customer.tickets.show')->with('ticket', $ticket);
         } catch (NotFoundException $exception) {
+            session()->flash('error_message', __('Ops, ticket não encontrado!'));
+
             return redirect()->back()->withErrors(__($exception->getMessage()));
         } catch (\Exception $exception) {
             Log::error($exception->getMessage(), LogContext::context($exception));
 
-            return redirect()->back()->withErrors(__('Ocorreu um erro, por favor tente novamente mais tarde :('));
+            session()->flash('error_message', __('Ocorreu um erro, por favor tente novamente mais tarde :('));
+
+            return redirect()->back();
         }
     }
 
@@ -66,16 +74,17 @@ class TicketController extends Controller
     {
         try {
             $customer = Auth::user();
-
             $this->ticketService->create($request, $customer);
 
-            $request->session()->flash('success_message', __('Ticket criado com sucesso!'));
+            session()->flash('success_message', __('Ticket criado com sucesso!'));
 
             return redirect()->route('customer.tickets.index');
         } catch (\Exception $exception) {
             Log::error($exception->getMessage(), LogContext::context($exception));
 
-            return redirect()->back()->withErrors(__('Ocorreu um erro, por favor tente novamente mais tarde :('));
+            session()->flash('error_message', __('Ocorreu um erro, por favor tente novamente mais tarde :('));
+
+            return redirect()->back();
         }
     }
 }

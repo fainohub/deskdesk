@@ -8,7 +8,7 @@
   @endif
 
   @if(Session::has('error_message'))
-      PNotify.success({
+      PNotify.error({
         text: '{{ Session::get('error_message') }}'
       });
   @endif
