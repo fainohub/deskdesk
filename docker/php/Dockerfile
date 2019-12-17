@@ -34,6 +34,13 @@ RUN docker-php-ext-install gd
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+# Install composer dependencies
+RUN composer install
+
+# Install npm dependencies
+RUN npm install
+RUN npm run dev
+
 # Add user for laravel application
 RUN groupadd -g 1000 www
 RUN useradd -u 1000 -ms /bin/bash -g www www
@@ -43,12 +50,6 @@ COPY . /var/www
 
 # Copy existing application directory permissions
 COPY --chown=www:www . /var/www
-
-# Install composer dependencies
-RUN composer install
-
-# Install npm dependencies
-RUN npm install
 
 # Change current user to www
 USER www
