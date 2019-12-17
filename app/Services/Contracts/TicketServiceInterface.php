@@ -15,6 +15,8 @@ interface TicketServiceInterface
 
     public function create(StoreTicketRequest $request, Customer $customer): Ticket;
 
+    public function allocate(Ticket $ticket): Ticket;
+
     public function ticketsPaginatedByCustomer(Customer $customer);
 
     public function ticketsPaginatedByAgent(Agent $agent);

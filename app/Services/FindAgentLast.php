@@ -22,7 +22,6 @@ class FindAgentLast implements FindAgentServiceInterface
 
     public function find(): ?Agent
     {
-        //TODO: change this logic
-        return $this->agentRepository->find(1);
+        return $this->agentRepository->last();
     }
 }
