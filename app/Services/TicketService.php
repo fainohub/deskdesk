@@ -37,6 +37,15 @@ class TicketService implements TicketServiceInterface
         return $ticket;
     }
 
+    public function close(int $id)
+    {
+        $data = [
+            'status' => Ticket::STATUS_CLOSED
+        ];
+
+        return $this->ticketRepository->update($data, $id);
+    }
+
     public function create(StoreTicketRequest $request, Customer $customer): Ticket
     {
         $data = [

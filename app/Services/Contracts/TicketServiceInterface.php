@@ -13,6 +13,8 @@ interface TicketServiceInterface
 {
     public function find(int $id): Ticket;
 
+    public function close(int $id);
+
     public function create(StoreTicketRequest $request, Customer $customer): Ticket;
 
     public function allocate(Ticket $ticket): Ticket;

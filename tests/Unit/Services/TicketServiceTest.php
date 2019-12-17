@@ -99,6 +99,21 @@ class TicketServiceTest extends TestCase
         $this->assertInstanceOf(Ticket::class, $ticket);
     }
 
+    public function testCloseSuccess()
+    {
+        $ticket = factory(Ticket::class)->create();
+
+        $this->assertEquals(Ticket::STATUS_OPEN, $ticket->status);
+
+        $result = $this->ticketService->close($ticket->id);
+
+        $this->assertNotEmpty($result);
+
+        $ticket = $this->ticketService->find($ticket->id);
+
+        $this->assertEquals(Ticket::STATUS_CLOSED, $ticket->status);
+    }
+
     public function testNotFoundException()
     {
         $this->expectException(NotFoundException::class);

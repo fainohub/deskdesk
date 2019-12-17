@@ -39,4 +39,13 @@ class TicketController extends Controller
             return redirect()->back();
         }
     }
+
+    public function close($id)
+    {
+        $this->ticketService->close($id);
+
+        session()->flash('success_message', __('Ticket fechado com sucesso!'));
+
+        return redirect()->route('agent.tickets.index');
+    }
 }

@@ -39,9 +39,6 @@
                                                 @case(\App\Models\Ticket::STATUS_OPEN)
                                                     <td><label class="badge badge-warning">{{ __('Novo') }}</label></td>
                                                     @break
-                                                @case(\App\Models\Ticket::STATUS_REOPEN)
-                                                    <td><label class="badge badge-warning">{{ __('Novo') }}</label></td>
-                                                    @break
                                                 @case(\App\Models\Ticket::STATUS_IN_PROGRESS)
                                                     <td><label class="badge badge-primary">{{ __('Em andamento') }}</label></td>
                                                     @break
