@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers\Customer;
 
-use Exception;
-use App\Helpers\LogContext;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Services\Contracts\CustomerServiceInterface;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 class RegisterController extends Controller
 {
@@ -31,20 +28,12 @@ class RegisterController extends Controller
 
     public function store(StoreCustomerRequest $request)
     {
-        try {
-            $customer = $this->customerService->create($request);
+        $customer = $this->customerService->create($request);
 
-            $this->guard()->login($customer);
+        $this->guard()->login($customer);
 
-            session()->flash('success_message', __('Cadastro feito com sucesso!'));
+        session()->flash('success_message', __('Cadastro feito com sucesso!'));
 
-            return redirect()->route('customer.tickets.index');
-        } catch (Exception $exception) {
-            Log::error($exception->getMessage(), LogContext::context($exception));
-
-            session()->flash('error_message', __('Ocorreu um erro, por favor tente novamente mais tarde :('));
-
-            return redirect()->back();
-        }
+        return redirect()->route('customer.tickets.index');
     }
 }

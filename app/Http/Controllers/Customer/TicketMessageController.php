@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers\Customer;
 
-use App\Helpers\LogContext;
-use App\Http\Requests\StoreTicketMessageRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreTicketMessageRequest;
 use App\Services\Contracts\TicketMessageServiceInterface;
 
 class TicketMessageController extends Controller
@@ -22,20 +20,12 @@ class TicketMessageController extends Controller
 
     public function store(StoreTicketMessageRequest $request, $id)
     {
-        try {
-            $customer = Auth::user();
+        $customer = Auth::user();
 
-            $this->ticketMessageService->createCustomerMessage($request, $id, $customer);
+        $this->ticketMessageService->createCustomerMessage($request, $id, $customer);
 
-            session()->flash('success_message', __('Mensagem salva com sucesso!'));
+        session()->flash('success_message', __('Mensagem salva com sucesso!'));
 
-            return redirect()->back();
-        } catch (\Exception $exception) {
-            Log::error($exception->getMessage(), LogContext::context($exception));
-
-            session()->flash('error_message', __('Ocorreu um erro, por favor tente novamente mais tarde :('));
-
-            return redirect()->back();
-        }
+        return redirect()->back();
     }
 }

@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Agent;
 
-use App\Helpers\LogContext;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use App\Services\Exceptions\NotFoundException;
 use App\Services\Contracts\TicketServiceInterface;
 
@@ -22,19 +20,11 @@ class TicketController extends Controller
 
     public function index()
     {
-        try {
-            $agent = Auth::user();
+        $agent = Auth::user();
 
-            $tickets = $this->ticketService->ticketsPaginatedByAgent($agent);
+        $tickets = $this->ticketService->ticketsPaginatedByAgent($agent);
 
-            return view('agent.tickets.index')->with('tickets', $tickets);
-        } catch (\Exception $exception) {
-            Log::error($exception->getMessage(), LogContext::context($exception));
-
-            session()->flash('error_message', __('Ocorreu um erro, por favor tente novamente mais tarde :('));
-
-            return redirect()->back();
-        }
+        return view('agent.tickets.index')->with('tickets', $tickets);
     }
 
     public function show($id)
@@ -45,12 +35,6 @@ class TicketController extends Controller
             return view('agent.tickets.show')->with('ticket', $ticket);
         } catch (NotFoundException $exception) {
             session()->flash('error_message', __('Ops, ticket não encontrado!'));
-
-            return redirect()->back()->withErrors(__($exception->getMessage()));
-        } catch (\Exception $exception) {
-            Log::error($exception->getMessage(), LogContext::context($exception));
-
-            session()->flash('error_message', __('Ocorreu um erro, por favor tente novamente mais tarde :('));
 
             return redirect()->back();
         }
