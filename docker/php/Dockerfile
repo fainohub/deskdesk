@@ -19,7 +19,9 @@ RUN apt-get update && apt-get install -y \
     vim \
     unzip \
     git \
-    curl
+    curl \
+    nodejs \
+    npm
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -41,6 +43,12 @@ COPY . /var/www
 
 # Copy existing application directory permissions
 COPY --chown=www:www . /var/www
+
+# Install composer dependencies
+RUN composer install
+
+# Install npm dependencies
+RUN npm install
 
 # Change current user to www
 USER www

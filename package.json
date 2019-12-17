@@ -18,7 +18,8 @@
         "jquery": "^3.4.1",
         "moment": "^2.24.0",
         "npm": "^6.10.2",
-        "pnotify": "^4.0.0"
+        "pnotify": "^4.0.0",
+        "popper.js": "^1.15.0"
     },
     "devDependencies": {
         "axios": "^0.19",
