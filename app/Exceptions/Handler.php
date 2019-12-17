@@ -2,9 +2,12 @@
 
 namespace App\Exceptions;
 
+use App\Helpers\LogContext;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 
 class Handler extends ExceptionHandler
 {
@@ -47,7 +50,17 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+        if (($exception instanceof ValidationException)
+           || ($exception instanceof AuthenticationException)
+        ) {
+            return parent::render($request, $exception);
+        }
+
+        $request->session()->flash('error_message', __('Ocorreu um erro, por favor tente novamente mais tarde :('));
+
+        Log::error($exception->getMessage(), LogContext::context($exception));
+        
+        return redirect()->back();
     }
 
     protected function unauthenticated($request, AuthenticationException $exception)

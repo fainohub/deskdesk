@@ -24,17 +24,22 @@
 
         <div class="container-fluid page-body-wrapper full-page-wrapper">
             <div class="content-wrapper d-flex">
-
-                @yield('content')
-
+                <div class="row flex-grow">
+                    <div class="col-lg-10 mx-auto">
+                        @yield('content')
+                    </div>
+                </div>
             </div>
-
         </div>
     </div>
 
-    <script src="{{ asset('vendors/js/vendor.bundle.base.js') }}"></script>
-    <script src="{{ asset('js/off-canvas.js') }}"></script>
-    <script src="{{ asset('js/hoverable-collapse.js') }}"></script>
-    <script src="{{ asset('js/misc.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendors/js/vendor.bundle.base.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/off-canvas.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/hoverable-collapse.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/misc.js') }}"></script>
+
+    @yield('script')
+
+    @include('layouts.partials._notification')
 </body>
 </html>

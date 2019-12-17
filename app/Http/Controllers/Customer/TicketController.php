@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Customer;
 
-use App\Helpers\LogContext;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTicketRequest;
 use App\Services\Exceptions\NotFoundException;
 use App\Services\Contracts\TicketServiceInterface;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 class TicketController extends Controller
 {
@@ -23,28 +21,16 @@ class TicketController extends Controller
 
     public function index()
     {
-        try {
-            $customer = Auth::user();
+        $customer = Auth::user();
 
-            $tickets = $this->ticketService->ticketsPaginatedByCustomer($customer);
+        $tickets = $this->ticketService->ticketsPaginatedByCustomer($customer);
 
-            return view('customer.tickets.index')->with('tickets', $tickets);
-        } catch (\Exception $exception) {
-            Log::error($exception->getMessage(), LogContext::context($exception));
-
-            return redirect()->back()->withErrors(__('Ocorreu um erro, por favor tente novamente mais tarde :('));
-        }
+        return view('customer.tickets.index')->with('tickets', $tickets);
     }
 
     public function create()
     {
-        try {
-            return view('customer.tickets.create');
-        } catch (\Exception $exception) {
-            Log::error($exception->getMessage(), LogContext::context($exception));
-
-            return redirect()->back()->withErrors(__('Ocorreu um erro, por favor tente novamente mais tarde :('));
-        }
+        return view('customer.tickets.create');
     }
 
     public function show($id)
@@ -54,26 +40,19 @@ class TicketController extends Controller
 
             return view('customer.tickets.show')->with('ticket', $ticket);
         } catch (NotFoundException $exception) {
-            return redirect()->back()->withErrors(__($exception->getMessage()));
-        } catch (\Exception $exception) {
-            Log::error($exception->getMessage(), LogContext::context($exception));
+            session()->flash('error_message', __('Ops, ticket não encontrado!'));
 
-            return redirect()->back()->withErrors(__('Ocorreu um erro, por favor tente novamente mais tarde :('));
+            return redirect()->back()->withErrors(__($exception->getMessage()));
         }
     }
 
     public function store(StoreTicketRequest $request)
     {
-        try {
-            $customer = Auth::user();
+        $customer = Auth::user();
+        $this->ticketService->create($request, $customer);
 
-            $this->ticketService->create($request, $customer);
+        session()->flash('success_message', __('Ticket criado com sucesso!'));
 
-            return redirect()->route('customer.tickets.index');
-        } catch (\Exception $exception) {
-            Log::error($exception->getMessage(), LogContext::context($exception));
-
-            return redirect()->back()->withErrors(__('Ocorreu um erro, por favor tente novamente mais tarde :('));
-        }
+        return redirect()->route('customer.tickets.index');
     }
 }

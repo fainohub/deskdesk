@@ -2,6 +2,8 @@
 
 namespace Tests\Unit\Repositories\Eloquent;
 
+use App\Events\TicketCreated;
+use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 use App\Models\Agent;
 use App\Models\Ticket;
@@ -39,6 +41,8 @@ class TicketServiceTest extends TestCase
 
     public function testCreate()
     {
+        Event::fake();
+
         $request = new StoreTicketRequest();
 
         $ticketFake = factory(Ticket::class)->make();
@@ -53,6 +57,12 @@ class TicketServiceTest extends TestCase
         $this->assertInstanceOf(Ticket::class, $ticket);
         $this->assertEquals($ticketFake->title, $ticket->title);
         $this->assertEquals($ticketFake->description, $ticket->description);
+
+        Event::assertDispatched(TicketCreated::class, function ($e) use ($ticket) {
+            return $e->ticket()->id === $ticket->id;
+        });
+
+        Event::assertDispatched(TicketCreated::class, 1);
     }
 
     public function testTicketsPaginatedByCustomer()
@@ -94,5 +104,18 @@ class TicketServiceTest extends TestCase
         $this->expectException(NotFoundException::class);
 
         $this->ticketService->find(500);
+    }
+
+    public function testAllocate()
+    {
+        $ticket = factory(Ticket::class)->create([
+            'agent_id' => null
+        ]);
+
+        $this->assertEmpty($ticket->agent_id);
+
+        $ticket = $this->ticketService->allocate($ticket);
+
+        $this->assertNotEmpty($ticket->agent_id);
     }
 }
