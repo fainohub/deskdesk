@@ -69,6 +69,8 @@ class TicketController extends Controller
 
             $this->ticketService->create($request, $customer);
 
+            $request->session()->flash('success_message', __('Ticket criado com sucesso!'));
+
             return redirect()->route('customer.tickets.index');
         } catch (\Exception $exception) {
             Log::error($exception->getMessage(), LogContext::context($exception));

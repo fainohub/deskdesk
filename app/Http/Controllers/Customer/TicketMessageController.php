@@ -27,6 +27,8 @@ class TicketMessageController extends Controller
 
             $this->ticketMessageService->createCustomerMessage($request, $id, $customer);
 
+            $request->session()->flash('success_message', __('Mensagem salva com sucesso!'));
+
             return redirect()->back();
         } catch (\Exception $exception) {
             Log::error($exception->getMessage(), LogContext::context($exception));
