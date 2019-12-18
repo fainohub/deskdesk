@@ -10,10 +10,12 @@ Assim nasce o DeskDesk, um simples sistema help desk em PHP para o processo sele
 ## Diagrama de Entidade Relacionamento
 A modelagem do banco de dados ficou extremamente simples, contendo apenas as tabelas de agentes, clientes e tickets. Vale ressaltar o uso do polimorfismo na tabela de ticket_messages, onde a mensagem em um ticket pode ser enviada por um cliente ou um agente.
 
+![der](https://user-images.githubusercontent.com/7597870/71091375-c3585580-2183-11ea-900b-e80d56df14d2.png)
 
 ## Diagrama de Casos de Uso
 O sistema consiste em 5 casos de usos básicos: realizar cadastro, criar ticket, responder ticket, fechar ticket e atribuir ticket. Dentro desse cenário encontram-se 3 atores: o cliente, o agente e o sistema. O cliente pode realizar o cadastro de sua conta com seu login e senha, pode criar um ticket e além disso adicionar respostas/mensagens em um ticket criado. O ator, por sua vez, responde os tickets atribuídos a ele e quando encerra o atendimento ele pode fechar um ticket. Nesse fluxo o sistema tem o papel apenas de atribuir um novo ticket a um agente de atendimento.
 
+![casodeuso](https://user-images.githubusercontent.com/7597870/71091527-087c8780-2184-11ea-8dd3-f74fc3c57e10.png)
 
 ## Tecnologias
 O projeto foi desenvolvido utilizando o framework Laravel na versão 6 e o PHP na versão 7.2. Para o frontend foi utilizado um web template gratuito encontrado na internet (Connect Plus), instalado no projeto criando os layouts dentro da template engine do Laravel, a Blade Template. Para persistência dos dados foi utilizado o banco de dados MySQL. Como serviço de Log foi utilizado o Loggly que é um provedor de serviços de análise e gerenciamento de logs baseado em nuvem.
@@ -25,10 +27,10 @@ Nas camadas de serviço e repositório o intuito foi deixar frameworkless, o mai
 Para a camada de repositório, como foi utilizado o framework Laravel, a implementação foi feita utilizando o Eloquent. Mas através dos contratos poderia ser facilmente implementado utilizando outro ORM como o Doctrine, por exemplo.
 
 ##### Camada de serviços
-<p align="center"><img src="https://user-images.githubusercontent.com/7597870/71090643-4d9fba00-2182-11ea-8099-776b09287c76.png"></p>
+![Camada de Serviços](https://user-images.githubusercontent.com/7597870/71090643-4d9fba00-2182-11ea-8099-776b09287c76.png)
 
 ##### Camada de repositórios
-<p align="center"><img src="https://user-images.githubusercontent.com/7597870/71090655-50021400-2182-11ea-9c09-6c89fa83449c.png"></p>
+![Camada de Repositórios](https://user-images.githubusercontent.com/7597870/71090655-50021400-2182-11ea-9c09-6c89fa83449c.png)
 
 
 ## Design Patterns
@@ -158,6 +160,8 @@ class FindAgentServiceFactory implements FindAgentFactoryInterface
 #### Strategy Pattern
 O design pattern Strategy foi utilizado para o serviço de alocação de tickets para um agente de atendimento, onde poderiam ter N algoritmos para escolha do melhor agente para aquele ticket (primeiro, randômico, fila, etc...). Para exemplificação desse pattern foi implementado 3 simples algoritmos para escolha do agente: encontrar o primeiro agente (FindAgentFirst), o último agente (FindAgentLast) ou randômico (FindAgentRandom).
 
+![Captura de Tela 2019-12-18 às 10 41 57](https://user-images.githubusercontent.com/7597870/71091073-331a1080-2183-11ea-8334-6a01e6e28165.png)
+
 Desse modo o serviço FindAgentService terá outputs diferentes baseado nas classes passadas em seu construtor. A escolha do algoritmo utilizado é configurado através de uma variável de ambiente no .env da aplicação (ALLOCATE_AGENT_METHOD), que pode ter valores first, last ou random. O design pattern factory mostrado acima é justamente para instanciar um novo serviço FindAgentService baseado na configuração do sistema, usando o pattern strategy. Abaixo seguem alguns exemplos desse pattern:
 
 ```
@@ -176,6 +180,8 @@ $agent = findService->find();
 
 #### Filter Pattern
 O Filter Pattern foi aplicado na camada de repositório, criando uma classe abstrata Criteria, onde cada filtro deverá estendê-la para ser adicionado no repositório a ser aplicado o filtro.
+
+![Filer Pattern](https://user-images.githubusercontent.com/7597870/71091071-31504d00-2183-11ea-922d-6e6bc69fa55d.png)
 
 Abaixo segue um exemplos de código utilizando o filter pattern na camada de repositório para obter os tickers de um cliente, ordenados de forma crescente pela data de atualização e retornar o resultado paginado. As classes ByCustomert e LatestByDate são filtros que estendem da classe Criteria e implementam a função apply.
 
