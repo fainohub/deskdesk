@@ -9,19 +9,23 @@ use App\Models\Agent;
 use App\Models\Customer;
 use App\Models\Ticket;
 use App\Http\Requests\StoreTicketRequest;
+use App\Services\Contracts\LogServiceInterface;
 use App\Services\Exceptions\NotFoundException;
 use App\Services\Contracts\TicketServiceInterface;
 use App\Repositories\Contracts\TicketRepositoryInterface;
 
 class TicketService implements TicketServiceInterface
 {
+    private $logService;
     private $ticketRepository;
     private $findAgentServiceFactory;
 
     public function __construct(
+        LogServiceInterface $logService,
         TicketRepositoryInterface $ticketRepository,
         FindAgentServiceFactory $findAgentServiceFactory
     ) {
+        $this->logService = $logService;
         $this->ticketRepository = $ticketRepository;
         $this->findAgentServiceFactory = $findAgentServiceFactory;
     }
@@ -58,6 +62,8 @@ class TicketService implements TicketServiceInterface
         $ticket = $this->ticketRepository->create($data);
 
         if ($ticket) {
+            $this->logService->info('Ticket Created');
+
             event(new TicketCreated($ticket));
         }
 
@@ -72,6 +78,8 @@ class TicketService implements TicketServiceInterface
 
         $ticket->agent()->associate($agent);
         $ticket->save();
+
+        $this->logService->info('Ticket Allocated');
 
         return $ticket;
     }
@@ -100,6 +108,4 @@ class TicketService implements TicketServiceInterface
     {
         return $this->ticketRepository->countClosed();
     }
-
-
 }

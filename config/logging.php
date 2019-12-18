@@ -3,6 +3,7 @@
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
+use Monolog\Handler\LogglyHandler;
 
 return [
 
@@ -94,6 +95,15 @@ return [
         'null' => [
             'driver' => 'monolog',
             'handler' => NullHandler::class,
+        ],
+
+        'loggly' => [
+            'driver'  => 'monolog',
+            'level' => 'debug',
+            'handler' => LogglyHandler::class,
+            'handler_with' => [
+                'token' => env('LOGGLY_TOKEN'),
+            ],
         ],
     ],
 
