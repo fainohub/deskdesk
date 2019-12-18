@@ -29,7 +29,7 @@
                 </li>
             @else
                 <li class="nav-item nav-profile dropdown">
-                    <a class="nav-link" href="{{ route('customer.login') }}">{{ __('Acessar minha conta') }}</a>
+                    <a class="nav-link" href="{{ route('customer.login') }}">{{ __('Área do Cliente') }}</a>
                 </li>
             @endif
         </ul>
