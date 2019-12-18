@@ -30,7 +30,24 @@ docker-compose exec app php artisan config:clear
 
 docker-compose exec app php artisan migrate --seed
 
+# Executar testes
+docker-compose exec app php ./vendor/bin/phpunit
 ```
+Como melhoria na criação do ambiente pode-se incluir instalação do composer e npm dentro do container.
+
+## Acesso
+http://0.0.0.0:90/
+
+##### Login de Atendende
+- Email: admin@deskdesk.com.br
+- Senha: admin12345
+
+##### Login de Cliente
+- Email: jose@deskdesk.com.br
+- Senha: admin12345
+
+A base foi populada utilizando o Faker.
+
 
 ## Diagrama de Entidade Relacionamento
 A modelagem do banco de dados ficou extremamente simples, contendo apenas as tabelas de agentes, clientes e tickets. Vale ressaltar o uso do polimorfismo na tabela de ticket_messages, onde a mensagem em um ticket pode ser enviada por um cliente ou um agente.
