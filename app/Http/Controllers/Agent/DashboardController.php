@@ -25,8 +25,6 @@ class DashboardController extends Controller
 
     public function index()
     {
-        Log::info('aiuhiuaeha');
-
         return view('agent.dashboard.index');
     }
 
