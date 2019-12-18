@@ -11,6 +11,8 @@ use App\Repositories\Eloquent\Filters\ByAgent;
 use App\Repositories\Eloquent\Filters\ByCustomer;
 use App\Repositories\Eloquent\Filters\LatestByDate;
 use App\Repositories\Contracts\TicketRepositoryInterface;
+use App\Repositories\Eloquent\Filters\TicketClosed;
+use App\Repositories\Eloquent\Filters\TicketOpen;
 
 class TicketRepository extends Repository implements TicketRepositoryInterface
 {
@@ -39,5 +41,26 @@ class TicketRepository extends Repository implements TicketRepositoryInterface
     public function findWithMessages(int $id): ?Ticket
     {
         return $this->model->with('messages')->find($id);
+    }
+
+    public function countAll(): int
+    {
+        return $this->model->count();
+    }
+
+    public function countOpen(): int
+    {
+        $this->pushCriteria(new TicketOpen());
+        $this->applyCriteria();
+
+        return $this->model->count();
+    }
+
+    public function countClosed(): int
+    {
+        $this->pushCriteria(new TicketClosed());
+        $this->applyCriteria();
+
+        return $this->model->count();
     }
 }

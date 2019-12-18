@@ -13,6 +13,8 @@ interface TicketServiceInterface
 {
     public function find(int $id): Ticket;
 
+    public function close(int $id);
+
     public function create(StoreTicketRequest $request, Customer $customer): Ticket;
 
     public function allocate(Ticket $ticket): Ticket;
@@ -20,4 +22,10 @@ interface TicketServiceInterface
     public function ticketsPaginatedByCustomer(Customer $customer);
 
     public function ticketsPaginatedByAgent(Agent $agent);
+
+    public function countAll(): int;
+
+    public function countOpen(): int;
+
+    public function countClosed(): int;
 }

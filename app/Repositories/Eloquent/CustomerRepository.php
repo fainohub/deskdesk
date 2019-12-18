@@ -15,4 +15,8 @@ class CustomerRepository extends Repository implements CustomerRepositoryInterfa
         return Customer::class;
     }
 
+    public function countAll(): int
+    {
+        return $this->model->count();
+    }
 }

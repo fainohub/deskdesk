@@ -39,4 +39,16 @@ class CustomerServiceTest extends TestCase
         $this->assertEquals($customerFake->name, $customer->name);
         $this->assertEquals($customerFake->email, $customer->email);
     }
+
+
+    public function testCustomersCountAll()
+    {
+        $number = 10;
+
+        factory(Customer::class, $number)->create();
+
+        $count = $this->customerService->countAll();
+
+        $this->assertEquals($number, $count);
+    }
 }

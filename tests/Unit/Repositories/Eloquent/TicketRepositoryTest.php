@@ -149,4 +149,49 @@ class TicketRepositoryTest extends TestCase
         $this->assertEquals($ticketFake->status, $ticket->status);
         $this->assertNotEmpty($ticket->messages);
     }
+
+    public function testCountAll()
+    {
+        $number = 10;
+
+        factory(Ticket::class, $number)->create();
+
+        $count = $this->ticketRepository->countAll();
+
+        $this->assertEquals($number, $count);
+    }
+
+    public function testCountOpen()
+    {
+        $number = 10;
+
+        factory(Ticket::class, $number)->create([
+            'status' => Ticket::STATUS_OPEN
+        ]);
+
+        factory(Ticket::class, 5)->create([
+            'status' => Ticket::STATUS_CLOSED
+        ]);
+
+        $count = $this->ticketRepository->countOpen();
+
+        $this->assertEquals($number, $count);
+    }
+
+    public function testCountClosed()
+    {
+        $number = 10;
+
+        factory(Ticket::class, 5)->create([
+            'status' => Ticket::STATUS_OPEN
+        ]);
+
+        factory(Ticket::class, $number)->create([
+            'status' => Ticket::STATUS_CLOSED
+        ]);
+
+        $count = $this->ticketRepository->countClosed();
+
+        $this->assertEquals($number, $count);
+    }
 }

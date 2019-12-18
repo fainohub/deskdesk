@@ -16,4 +16,10 @@ interface TicketRepositoryInterface extends RepositoryInterface, CriteriaInterfa
     public function ticketsPaginatedByAgent(Agent $agent);
 
     public function findWithMessages(int $id): ?Ticket;
+
+    public function countAll(): int;
+
+    public function countOpen(): int;
+
+    public function countClosed(): int;
 }

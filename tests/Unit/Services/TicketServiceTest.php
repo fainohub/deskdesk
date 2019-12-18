@@ -99,6 +99,21 @@ class TicketServiceTest extends TestCase
         $this->assertInstanceOf(Ticket::class, $ticket);
     }
 
+    public function testCloseSuccess()
+    {
+        $ticket = factory(Ticket::class)->create();
+
+        $this->assertEquals(Ticket::STATUS_OPEN, $ticket->status);
+
+        $result = $this->ticketService->close($ticket->id);
+
+        $this->assertNotEmpty($result);
+
+        $ticket = $this->ticketService->find($ticket->id);
+
+        $this->assertEquals(Ticket::STATUS_CLOSED, $ticket->status);
+    }
+
     public function testNotFoundException()
     {
         $this->expectException(NotFoundException::class);
@@ -117,5 +132,50 @@ class TicketServiceTest extends TestCase
         $ticket = $this->ticketService->allocate($ticket);
 
         $this->assertNotEmpty($ticket->agent_id);
+    }
+
+    public function testCountAll()
+    {
+        $number = 10;
+
+        factory(Ticket::class, $number)->create();
+
+        $count = $this->ticketService->countAll();
+
+        $this->assertEquals($number, $count);
+    }
+
+    public function testCountOpen()
+    {
+        $number = 10;
+
+        factory(Ticket::class, $number)->create([
+            'status' => Ticket::STATUS_OPEN
+        ]);
+
+        factory(Ticket::class, 5)->create([
+            'status' => Ticket::STATUS_CLOSED
+        ]);
+
+        $count = $this->ticketService->countOpen();
+
+        $this->assertEquals($number, $count);
+    }
+
+    public function testCountClosed()
+    {
+        $number = 10;
+
+        factory(Ticket::class, 5)->create([
+            'status' => Ticket::STATUS_OPEN
+        ]);
+
+        factory(Ticket::class, $number)->create([
+            'status' => Ticket::STATUS_CLOSED
+        ]);
+
+        $count = $this->ticketService->countClosed();
+
+        $this->assertEquals($number, $count);
     }
 }

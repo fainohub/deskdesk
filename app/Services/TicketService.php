@@ -37,6 +37,15 @@ class TicketService implements TicketServiceInterface
         return $ticket;
     }
 
+    public function close(int $id)
+    {
+        $data = [
+            'status' => Ticket::STATUS_CLOSED
+        ];
+
+        return $this->ticketRepository->update($data, $id);
+    }
+
     public function create(StoreTicketRequest $request, Customer $customer): Ticket
     {
         $data = [
@@ -76,4 +85,21 @@ class TicketService implements TicketServiceInterface
     {
         return $this->ticketRepository->ticketsPaginatedByAgent($agent);
     }
+
+    public function countAll(): int
+    {
+        return $this->ticketRepository->countAll();
+    }
+
+    public function countOpen(): int
+    {
+        return $this->ticketRepository->countOpen();
+    }
+
+    public function countClosed(): int
+    {
+        return $this->ticketRepository->countClosed();
+    }
+
+
 }
