@@ -29,7 +29,7 @@
             <div class="col-lg-8 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h2>{{ __('Navegue nas páginas de Ajuda') }}</h2>
+                        <h2>{{ __('Perguntas Frequentes') }}</h2>
                         <hr>
                     </div>
                 </div>
