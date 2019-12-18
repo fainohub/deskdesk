@@ -15,22 +15,25 @@
             </div>
         </div>
 
-        <div class="col-lg-12 grid-margin stretch-card">
+        <div class="col-lg-4 grid-margin stretch-card">
             <div class="card">
-                <div class="card-body">
-                    <a href="{{ route('customer.tickets.index') }}">Meus tickets</a>
-                    <a href="{{ route('agent.dashboard.index') }}">Administrativo</a>
+                <div class="card-body text-center">
+                    <h1>Tickets</h1>
+                    <p>{{ __('Algum problema ou dúvida? Basta abrir um ticket que nossos atendentes vão ajudar o mais rápido possível!') }}</p>
+                    <a class="btn btn-primary" href="{{ route('customer.tickets.index') }}">Meus tickets</a>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <h2>{{ __('Navegue nas páginas de Ajuda') }}</h2>
-                    <hr>
+        @if(config('features.faq'))
+            <div class="col-lg-8 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h2>{{ __('Navegue nas páginas de Ajuda') }}</h2>
+                        <hr>
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
     </div>
 @endsection
