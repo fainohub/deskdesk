@@ -86,4 +86,15 @@ class CustomerRepositoryTest extends TestCase
         $this->assertEquals($cutomerFactory->name, $customer->name);
         $this->assertEquals($cutomerFactory->email, $customer->email);
     }
+
+    public function testCustomersCountAll()
+    {
+        $number = 10;
+
+        factory(Customer::class, $number)->create();
+
+        $count = $this->customerRepository->countAll();
+
+        $this->assertEquals($number, $count);
+    }
 }

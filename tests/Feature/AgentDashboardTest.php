@@ -25,8 +25,47 @@ class AgentDashboardTest extends TestCase
             ->actingAs($this->agent, 'agent')
             ->get(route('agent.dashboard.index'));
 
-
         $response->assertSuccessful();
         $response->assertViewIs('agent.dashboard.index');
+    }
+
+    public function testTicketsTotalWidget()
+    {
+        $response = $this
+            ->actingAs($this->agent, 'agent')
+            ->get(route('agent.dashboard.tickets.total'));
+
+        $response->assertSuccessful();
+        $response->assertJsonStructure(['tickets']);
+    }
+
+    public function testTicketsOpenWidget()
+    {
+        $response = $this
+            ->actingAs($this->agent, 'agent')
+            ->get(route('agent.dashboard.tickets.open'));
+
+        $response->assertSuccessful();
+        $response->assertJsonStructure(['tickets']);
+    }
+
+    public function testTicketsClosedWidget()
+    {
+        $response = $this
+            ->actingAs($this->agent, 'agent')
+            ->get(route('agent.dashboard.tickets.closed'));
+
+        $response->assertSuccessful();
+        $response->assertJsonStructure(['tickets']);
+    }
+
+    public function testCustomersTotalWidget()
+    {
+        $response = $this
+            ->actingAs($this->agent, 'agent')
+            ->get(route('agent.dashboard.customers.total'));
+
+        $response->assertSuccessful();
+        $response->assertJsonStructure(['customers']);
     }
 }
