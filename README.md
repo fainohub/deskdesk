@@ -14,7 +14,7 @@ git clone https://github.com/fainohub/deskdesk.git
 
 cd deskdesk
 
-composer install
+composer install --ignore-platform-reqs
 
 npm install
 
@@ -36,7 +36,8 @@ docker-compose exec app php ./vendor/bin/phpunit
 Como melhoria na criação do ambiente pode-se incluir instalação do composer e npm dentro do container.
 
 ## Acesso
-http://0.0.0.0:90/
+- Local: http://0.0.0.0:90/
+- Produção: http://167.172.229.42:90/
 
 ##### Login de Atendende
 - Email: admin@deskdesk.com.br
