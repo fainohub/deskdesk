@@ -38,7 +38,7 @@ Para a camada de repositório, como foi utilizado o framework Laravel, a impleme
 #### Singleton
 O design pattern Singleton foi utilizado em um Helper para criação do contexto a ser enviado ao serviço de log, abaixo segue sua implementação.
 
-```
+```php
 <?php
 
 declare(strict_types=1);
@@ -112,7 +112,7 @@ final class LogContext
 O design pattern Factory foi utilizado para criação de uma classe de serviço que possuía uma regra de negócio para sua criação dependendo da configuração do sistema. Abaixo segue a sua interface e implementação.
 
 *App\Services\Contracts\FindAgentFactoryInterface.php*
-```
+```php
 <?php
 
 declare(strict_types=1);
@@ -125,7 +125,7 @@ interface FindAgentFactoryInterface
 }
 ```
 *App\Services\FindAgentServiceFactory.php*
-```
+```php
 <?php
 
 declare(strict_types=1);
@@ -164,7 +164,7 @@ O design pattern Strategy foi utilizado para o serviço de alocação de tickets
 
 Desse modo o serviço FindAgentService terá outputs diferentes baseado nas classes passadas em seu construtor. A escolha do algoritmo utilizado é configurado através de uma variável de ambiente no .env da aplicação (ALLOCATE_AGENT_METHOD), que pode ter valores first, last ou random. O design pattern factory mostrado acima é justamente para instanciar um novo serviço FindAgentService baseado na configuração do sistema, usando o pattern strategy. Abaixo seguem alguns exemplos desse pattern:
 
-```
+```php
 //Obter um agente seguindo a regra do primeiro agente:
 $findService = new FindAgentService(new FindAgentFirst($agentRepository));
 $agent = findService->find();
@@ -185,7 +185,7 @@ O Filter Pattern foi aplicado na camada de repositório, criando uma classe abst
 
 Abaixo segue um exemplos de código utilizando o filter pattern na camada de repositório para obter os tickers de um cliente, ordenados de forma crescente pela data de atualização e retornar o resultado paginado. As classes ByCustomert e LatestByDate são filtros que estendem da classe Criteria e implementam a função apply.
 
-```
+```php
 class TicketRepository extends Repository implements TicketRepositoryInterface
 {
    public function ticketsPaginatedByCustomer(Customer $customer)
@@ -236,6 +236,8 @@ class ByCustomer extends Criteria
 
 No desenvolvimento do projeto foi seguido alguns conceitos do TDD (Test Driven Development). Foram escritos testes de Feature para os casos de uso e testes de unidade para cada função de cada classe desenvolvida.
 Devido ao tempo do projeto os testes desenvolvidos foram os mais básicos possíveis e tiveram o intuito de auxiliar o desenvolvimento do projeto com a melhor qualidade e mostrar a importância do desenvolvimento seguindo esse modelo.
+
+![Tests](https://user-images.githubusercontent.com/7597870/71091694-5abda880-2184-11ea-8409-fd748c95255b.png)
 
 ## Melhorias Futuras e Escalabilidade
 Como melhorias futuras no projeto pode se destacar o desenvolvimento de um FAQ e uma base de conhecimento, com assuntos mais buscados pelos clientes, para que esses clientes consigam solucionar suas dúvidas ou problemas sem precisar entrar em contato com a equipe de atendimento.
