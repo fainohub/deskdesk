@@ -18,7 +18,7 @@ O sistema consiste em 5 casos de usos básicos: realizar cadastro, criar ticket,
 ![casodeuso](https://user-images.githubusercontent.com/7597870/71091527-087c8780-2184-11ea-8dd3-f74fc3c57e10.png)
 
 ## Tecnologias
-O projeto foi desenvolvido utilizando o framework Laravel na versão 6 e o PHP na versão 7.2. Para o frontend foi utilizado um web template gratuito encontrado na internet (Connect Plus), instalado no projeto criando os layouts dentro da template engine do Laravel, a Blade Template. Para persistência dos dados foi utilizado o banco de dados MySQL. Como serviço de Log foi utilizado o Loggly que é um provedor de serviços de análise e gerenciamento de logs baseado em nuvem.
+O projeto foi desenvolvido utilizando o framework Laravel na versão 6 e o PHP na versão 7.2. Para o frontend foi utilizado um web template gratuito encontrado na internet ([Connect Plus](http://www.bootstrapdash.com/demo/connect-plus-free/jquery/documentation/documentation.html)), instalado no projeto criando os layouts dentro da template engine do Laravel, a Blade Template. Para persistência dos dados foi utilizado o banco de dados MySQL. Como serviço de Log foi utilizado o Loggly que é um provedor de serviços de análise e gerenciamento de logs baseado em nuvem.
 
 
 ## Arquitetura
@@ -241,5 +241,6 @@ Devido ao tempo do projeto os testes desenvolvidos foram os mais básicos possí
 
 ## Melhorias Futuras e Escalabilidade
 Como melhorias futuras no projeto pode se destacar o desenvolvimento de um FAQ e uma base de conhecimento, com assuntos mais buscados pelos clientes, para que esses clientes consigam solucionar suas dúvidas ou problemas sem precisar entrar em contato com a equipe de atendimento.
+
 Olhando para o lado da escalabilidade é possível notar que, com milhares de clientes, qualquer sistema básico de atendimento que temos hoje (telefone, email, chat, tickets...) não são escaláveis e demandaria muito esforço humano para um atendimento eficaz e de qualidade. Analisando por esse ponto uma proposta que atenderia parte dessa escalabilidade seria um chatbot, criar um robô de atendimento para quando nenhum atendente humano estiver disponível ou até mesmo evoluir essa inteligência artificial para que todos os atendimentos sejam feitos através de robôs.
 Para implementação dentro desse projeto, pensando em seguir a mesma linha do desenvolvimento em PHP e de forma simplificada, foi avaliado a implementação do [BotMan](https://botman.io/), que é uma biblioteca PHP para o desenvolvimento de chatbot. Devido ao tempo do projeto infelizmente essa proposta não pode ser implementada, mas fica como proposta de melhoria futura.
