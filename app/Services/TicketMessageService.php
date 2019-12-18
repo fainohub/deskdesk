@@ -8,14 +8,20 @@ use App\Models\Agent;
 use App\Models\Customer;
 use App\Models\TicketMessage;
 use App\Http\Requests\StoreTicketMessageRequest;
+use App\Services\Contracts\LogServiceInterface;
 use App\Services\Contracts\TicketMessageServiceInterface;
 use App\Repositories\Contracts\TicketMessageRepositoryInterface;
 
 class TicketMessageService implements TicketMessageServiceInterface
 {
+    private $logService;
     private $ticketMessageRepository;
 
-    public function __construct(TicketMessageRepositoryInterface $ticketMessageRepository) {
+    public function __construct(
+        LogServiceInterface $logService,
+        TicketMessageRepositoryInterface $ticketMessageRepository
+    ) {
+        $this->logService = $logService;
         $this->ticketMessageRepository = $ticketMessageRepository;
     }
 
@@ -36,7 +42,13 @@ class TicketMessageService implements TicketMessageServiceInterface
             'commentable_type' => Customer::class
         ];
 
-        return $this->ticketMessageRepository->create($data);
+        $message = $this->ticketMessageRepository->create($data);
+
+        if ($message) {
+            $this->logService->info('Ticket Message Create');
+        }
+
+        return $message;
     }
 
     public function createAgentMessage(
@@ -51,7 +63,13 @@ class TicketMessageService implements TicketMessageServiceInterface
             'commentable_type' => Agent::class
         ];
 
-        return $this->ticketMessageRepository->create($data);
+        $message = $this->ticketMessageRepository->create($data);
+
+        if ($message) {
+            $this->logService->info('Ticket Message Create');
+        }
+
+        return $message;
     }
 
 }

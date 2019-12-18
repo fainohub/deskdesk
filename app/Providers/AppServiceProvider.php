@@ -4,8 +4,10 @@ namespace App\Providers;
 
 
 use App\Services\Contracts\FindAgentFactoryInterface;
+use App\Services\Contracts\LogServiceInterface;
 use App\Services\Contracts\TicketMessageServiceInterface;
 use App\Services\FindAgentServiceFactory;
+use App\Services\LogLaravelService;
 use App\Services\TicketMessageService;
 use Illuminate\Support\ServiceProvider;
 use App\Services\TicketService;
@@ -49,6 +51,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(PasswordServiceInterface::class, PasswordHashService::class);
         $this->app->bind(TicketMessageServiceInterface::class, TicketMessageService::class);
         $this->app->bind(FindAgentFactoryInterface::class, FindAgentServiceFactory::class);
+        $this->app->bind(LogServiceInterface::class, LogLaravelService::class);
     }
 
     /**

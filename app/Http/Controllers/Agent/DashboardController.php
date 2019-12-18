@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Agent;
 use App\Http\Controllers\Controller;
 use App\Services\Contracts\CustomerServiceInterface;
 use App\Services\Contracts\TicketServiceInterface;
+use Illuminate\Support\Facades\Log;
 
 class DashboardController extends Controller
 {

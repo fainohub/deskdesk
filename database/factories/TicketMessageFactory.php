@@ -10,7 +10,7 @@ use App\Models\TicketMessage;
 $factory->define(TicketMessage::class, function (Faker $faker) {
     return [
         'ticket_id'        => factory(Ticket::class)->create()->id,
-        'message'          => $faker->text(150),
+        'message'          => $faker->text(300),
         'commentable_id'   => factory(Customer::class)->create()->id,
         'commentable_type' => Customer::class,
         'created_at'       => now(),
