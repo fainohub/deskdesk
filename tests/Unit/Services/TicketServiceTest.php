@@ -133,4 +133,49 @@ class TicketServiceTest extends TestCase
 
         $this->assertNotEmpty($ticket->agent_id);
     }
+
+    public function testCountAll()
+    {
+        $number = 10;
+
+        factory(Ticket::class, $number)->create();
+
+        $count = $this->ticketService->countAll();
+
+        $this->assertEquals($number, $count);
+    }
+
+    public function testCountOpen()
+    {
+        $number = 10;
+
+        factory(Ticket::class, $number)->create([
+            'status' => Ticket::STATUS_OPEN
+        ]);
+
+        factory(Ticket::class, 5)->create([
+            'status' => Ticket::STATUS_CLOSED
+        ]);
+
+        $count = $this->ticketService->countOpen();
+
+        $this->assertEquals($number, $count);
+    }
+
+    public function testCountClosed()
+    {
+        $number = 10;
+
+        factory(Ticket::class, 5)->create([
+            'status' => Ticket::STATUS_OPEN
+        ]);
+
+        factory(Ticket::class, $number)->create([
+            'status' => Ticket::STATUS_CLOSED
+        ]);
+
+        $count = $this->ticketService->countClosed();
+
+        $this->assertEquals($number, $count);
+    }
 }

@@ -22,4 +22,10 @@ interface TicketServiceInterface
     public function ticketsPaginatedByCustomer(Customer $customer);
 
     public function ticketsPaginatedByAgent(Agent $agent);
+
+    public function countAll(): int;
+
+    public function countOpen(): int;
+
+    public function countClosed(): int;
 }

@@ -11,4 +11,6 @@ interface CustomerServiceInterface
 {
 
     public function create(StoreCustomerRequest $request): Customer;
+
+    public function countAll(): int;
 }

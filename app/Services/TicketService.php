@@ -85,4 +85,21 @@ class TicketService implements TicketServiceInterface
     {
         return $this->ticketRepository->ticketsPaginatedByAgent($agent);
     }
+
+    public function countAll(): int
+    {
+        return $this->ticketRepository->countAll();
+    }
+
+    public function countOpen(): int
+    {
+        return $this->ticketRepository->countOpen();
+    }
+
+    public function countClosed(): int
+    {
+        return $this->ticketRepository->countClosed();
+    }
+
+
 }

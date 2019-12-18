@@ -37,4 +37,11 @@ class CustomerService implements CustomerServiceInterface
 
         return $this->customerRepository->create($data);
     }
+
+    public function countAll(): int
+    {
+        return $this->customerRepository->countAll();
+    }
+
+
 }

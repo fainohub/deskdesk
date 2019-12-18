@@ -23,7 +23,15 @@ Route::group(['prefix' => 'agent', 'namespace' => 'Agent'], function (){
     Route::post('login', 'LoginController@login')->name('agent.login.post');
     Route::get('logout', 'LoginController@logout')->name('agent.logout');
 
-    Route::get('dashboard', 'DashboardController@index')->name('agent.dashboard.index');
+    Route::group(['prefix' => 'dashboard'], function (){
+        Route::get('', 'DashboardController@index')->name('agent.dashboard.index');
+
+        // Dashboard Widgets
+        Route::get('/tickets-total', 'DashboardController@ticketsTotal')->name('agent.dashboard.tickets.total');
+        Route::get('/tickets-open', 'DashboardController@ticketsOpen')->name('agent.dashboard.tickets.open');
+        Route::get('/tickets-closed', 'DashboardController@ticketsClosed')->name('agent.dashboard.tickets.closed');
+        Route::get('/customers-total', 'DashboardController@customersTotal')->name('agent.dashboard.customers.total');
+    });
 
     Route::group(['prefix' => 'tickets'], function (){
         Route::get('', 'TicketController@index')->name('agent.tickets.index');
@@ -31,6 +39,7 @@ Route::group(['prefix' => 'agent', 'namespace' => 'Agent'], function (){
         Route::post('{id}/close', 'TicketController@close')->name('agent.tickets.close');
         Route::post('{id}/messages', 'TicketMessageController@store')->name('agent.tickets.message.store');
     });
+
 });
 
 Route::group(['prefix' => 'customer', 'namespace' => 'Customer'], function (){
