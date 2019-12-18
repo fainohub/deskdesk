@@ -24,6 +24,12 @@ Como requisito do projeto foi utilizado uma arquitetura MVC com uma camada de se
 Nas camadas de serviço e repositório o intuito foi deixar frameworkless, o mais independente de framework possível, por isso a grande utilização de contratos e inversão de dependência, o que deixa o código dependente apenas da abstração e não da implementação, conseguindo ficar desacoplado do framework.
 Para a camada de repositório, como foi utilizado o framework Laravel, a implementação foi feita utilizando o Eloquent. Mas através dos contratos poderia ser facilmente implementado utilizando outro ORM como o Doctrine, por exemplo.
 
+##### Camada de serviços
+<p align="center"><img src="https://user-images.githubusercontent.com/7597870/71090643-4d9fba00-2182-11ea-8099-776b09287c76.png"></p>
+
+##### Camada de repositórios
+<p align="center"><img src="https://user-images.githubusercontent.com/7597870/71090655-50021400-2182-11ea-9c09-6c89fa83449c.png"></p>
+
 
 ## Design Patterns
 
