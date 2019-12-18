@@ -33,7 +33,7 @@ docker-compose exec app php artisan migrate --seed
 # Executar testes
 docker-compose exec app php ./vendor/bin/phpunit
 ```
-Como melhoria na criação do ambiente é a instalação do composer e npm dentro do container.
+Como melhoria na criação do ambiente pode-se incluir instalação do composer e npm dentro do container.
 
 ## Acesso
 http://0.0.0.0:90/
