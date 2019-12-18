@@ -7,6 +7,31 @@ Quando um novo ticket é criado o sistema aloca esse ticket automaticamente para
 O agente de atendimento por sua vez tem acesso à uma dashboard onde ele consegue acompanhar todos os tickets atrelados a ele e dar andamento ao atendimento. Quando um atendimento é finalizado o agente marca o ticket como finalizado, dando encerramento naquele atendimento.
 Assim nasce o DeskDesk, um simples sistema help desk em PHP para o processo seletivo da MadeiraMadeira.
 
+## Instalação
+
+```
+git clone https://github.com/fainohub/deskdesk.git
+
+cd deskdesk
+
+composer install
+
+npm install
+
+npm run dev
+
+docker-compose up -d
+
+docker-compose exec app cp .env.example .env
+
+docker-compose exec app php artisan key:generate
+
+docker-compose exec app php artisan config:clear
+
+docker-compose exec app php artisan migrate --seed
+
+```
+
 ## Diagrama de Entidade Relacionamento
 A modelagem do banco de dados ficou extremamente simples, contendo apenas as tabelas de agentes, clientes e tickets. Vale ressaltar o uso do polimorfismo na tabela de ticket_messages, onde a mensagem em um ticket pode ser enviada por um cliente ou um agente.
 
