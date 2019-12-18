@@ -37,7 +37,7 @@
                         <tbody>
                             @foreach($tickets as $ticket)
                                 <tr>
-                                    <td>{{ $ticket->title }}</td>
+                                    <td>{{ \Illuminate\Support\Str::limit($ticket->title, 60) }}</td>
                                     <td>{{ $ticket->created_at->format('d/m/Y H:i:s') }}</td>
                                     @switch($ticket->status)
                                         @case(\App\Models\Ticket::STATUS_OPEN)
