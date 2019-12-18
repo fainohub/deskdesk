@@ -2,7 +2,7 @@
 
 @section('title', 'Login')
 
-@section('cart-title', 'Área do Atendente - DeskDesk')
+@section('cart-title', 'Área do Atendente')
 
 @section('content')
     <h6 class="font-weight-light">{{ __('Faça o Login para continuar') }}</h6>
