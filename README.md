@@ -9,31 +9,22 @@ Assim nasce o DeskDesk, um simples sistema help desk em PHP para o processo sele
 
 ## Instalação
 
+Requisitos:
+- Docker
+- Docker Compose
+- Npm
+
 ```
 git clone https://github.com/fainohub/deskdesk.git
 
 cd deskdesk
 
-composer install --ignore-platform-reqs
+sh run.sh
 
-npm install
-
-npm run dev
+## Após realizado a instalação, para subir o container novamente basta executar:
 
 docker-compose up -d
-
-docker-compose exec app cp .env.example .env
-
-docker-compose exec app php artisan key:generate
-
-docker-compose exec app php artisan config:clear
-
-docker-compose exec app php artisan migrate --seed
-
-# Executar testes
-docker-compose exec app php ./vendor/bin/phpunit
 ```
-Como melhoria na criação do ambiente pode-se incluir instalação do composer e npm dentro do container.
 
 ## Acesso
 - Local: http://0.0.0.0:90/
