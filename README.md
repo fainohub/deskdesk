@@ -21,7 +21,7 @@ cd deskdesk
 
 sh run.sh
 
-## Após realizado a instalação, para subir o container novamente basta executar:
+## Após realizar a instalação, para subir o container novamente basta executar:
 
 docker-compose up -d
 ```
